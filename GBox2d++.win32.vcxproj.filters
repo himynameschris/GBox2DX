@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="source">
+      <UniqueIdentifier>{1be9304b-dee6-4fe0-a3b3-c3f899eb05f7}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{d0df73ee-5f6c-45ec-9b3b-59543854063a}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
+    </Filter>
+    <Filter Include="resource">
+      <UniqueIdentifier>{64eddaa9-f64e-4422-ab93-24776ddcac72}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;jpg;jpeg;jpe;png;manifest</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Classes\GB2Config.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GB2Contact.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GB2Node.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GLES-Render.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GB2DebugDrawLayer.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GB2Engine.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GB2ShapeCache.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GB2Sprite.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GB2WorldContactListener.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GB2Action.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="GBox2D.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GB2Helper.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Classes\GB2Contact.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\GB2DebugDrawLayer.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\GB2Engine.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\GB2Node.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\GB2ShapeCache.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\GB2Sprite.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\GB2WorldContactListener.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\GLES-Render.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\GB2Action.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="GBox2D.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
