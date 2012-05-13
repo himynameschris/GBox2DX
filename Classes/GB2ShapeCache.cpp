@@ -161,7 +161,7 @@ void GB2ShapeCache::addShapesWithFile(const std::string &plist) {
             basicData.isSensor = (bool)static_cast<CCString *>(fixtureData->objectForKey("isSensor"))->toInt();
 			if(fixtureData->objectForKey("id")){
 				basicData.fixID = static_cast<CCString *>(fixtureData->objectForKey("id"))->toInt();
-				//hello
+				//CLog("basicData.fixID: i%", basicData.fixID);
 			}
 
 			CCString *cb = static_cast<CCString *>(fixtureData->objectForKey("userdataCbValue"));
