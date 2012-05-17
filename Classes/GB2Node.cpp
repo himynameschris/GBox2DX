@@ -81,7 +81,7 @@ GB2Node * GB2Node::nodeFromShapeNameandSprite(CCString *shape, b2BodyType bodyTy
 
 bool GB2Node::initWithShapeNameAndSprite(CCString *shape, b2BodyType bodyType, CCNode *node)
 {
-	if(shape != NULL) CCLog("GB2Node::init for shape %s", shape->toStdString().c_str());
+	//if(shape != NULL) CCLog("GB2Node::init for shape %s", shape->toStdString().c_str());
 	
 	init();
 
