@@ -31,6 +31,7 @@
 GB2Node::GB2Node(void)
 {
 	_body = NULL;
+	_world = GB2Engine::sharedInstance()->getworld();
 	ccNode = NULL;
 }
 
@@ -163,8 +164,6 @@ void GB2Node::destroyBody()
 	{
 		_world->DestroyBody(_body);
 		_body = NULL;
-
-		//this->release();
 
 	}
 }

@@ -138,6 +138,8 @@ void GB2Engine::update(ccTime dt)
 	world->Step(timeStep, velocityIterations, positionIterations);
 	//CCLog("CCEngine::update()");
 	
+	std::vector<GB2Node *>toDestroy;
+
 	for (b2Body* b = world->GetBodyList(); b; b = b->GetNext()) 
     {        
 		
@@ -149,11 +151,19 @@ void GB2Engine::update(ccTime dt)
 
 			if(obj->getDeleteLater())
 			{
-				obj->deleteNow();
+				toDestroy.push_back(obj);
 			}
 		}
     } 
-	 
+	
+	std::vector<GB2Node *>::iterator pos2;
+	   for(pos2 = toDestroy.begin(); pos2 != toDestroy.end(); ++pos2) {
+		   GB2Node *node = *pos2;     
+       
+			node->deleteNow();
+
+	   }
+
 }
 
 void GB2Engine::iterateObjectsWithBlock(GB2NodeCallBack *callback)
