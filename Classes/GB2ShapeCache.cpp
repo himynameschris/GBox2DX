@@ -115,31 +115,140 @@ cocos2d::CCPoint GB2ShapeCache::anchorPointForShape(const std::string &shape) {
 	return bd->anchorPoint;
 }
 
-typedef CCDictionary<std::string, CCObject*> ObjectDict;
+//typedef CCDictionary ObjectDict;
 
 void GB2ShapeCache::addShapesWithFile(const std::string &plist) {
 
-	const char *fullName = CCFileUtils::fullPathFromRelativeFile(plist.c_str(), plist.c_str());
+	//const char *fullName = CCFileUtils::fullPathFromRelativeFile(plist.c_str(), plist.c_str());
 	//CCLog("GB2ShapeCache::addShapesWithFile plist:%s, fullName:%s", plist.c_str(), fullName);
 
-	ObjectDict *dict = CCFileUtils::dictionaryWithContentsOfFileThreadSafe(plist.c_str());
+	CCDictionary *dict = CCDictionary::dictionaryWithContentsOfFileThreadSafe(plist.c_str());
 	CCAssert(dict != NULL, "Shape-file not found"); // not triggered - cocos2dx delivers empty dict if non was found
     CCAssert(dict->count() != 0, "plist file empty or not existing");
 	
-	ObjectDict *metadataDict = (ObjectDict *)dict->objectForKey("metadata");
-    int format = static_cast<CCString *>(metadataDict->objectForKey("format"))->toInt();
-    ptmRatio = static_cast<CCString *>(metadataDict->objectForKey("ptm_ratio"))->toFloat();
+	CCDictionary *metadataDict = (CCDictionary *)dict->objectForKey("metadata");
+    int format = static_cast<CCString *>(metadataDict->objectForKey("format"))->intValue();
+    ptmRatio = static_cast<CCString *>(metadataDict->objectForKey("ptm_ratio"))->floatValue();
 	CCAssert(format == 1, "Format not supported");
 
-	ObjectDict *bodyDict = (ObjectDict *)dict->objectForKey("bodies");
+	CCDictionary *bodyDict = (CCDictionary *)dict->objectForKey("bodies");
 
     b2Vec2 vertices[b2_maxPolygonVertices];
 
-	ObjectDict::CCObjectMapIter iter;
+	//ObjectDict::CCObjectMapIter iter;
 	
-	bodyDict->begin();
+	//std::string bodyName = NULL;
+	//CCDictionary *bodyData;
+	CCDictElement* pElement = NULL;
+	CCDICT_FOREACH(bodyDict, pElement)
+	{
+		BodyDef *bodyDef = new BodyDef();
+
+		CCString *bodyName = ccs(pElement->getStrKey());
+
+		CCDictionary *bodyData = (CCDictionary *)pElement->getObject();
+		bodyDef->anchorPoint = CCPointFromString(static_cast<CCString *>(bodyData->objectForKey("anchorpoint"))->getCString());
+		
+		CCDictionary *fixtureList = (CCDictionary *)bodyData->objectForKey("fixtures");
+		FixtureDef *nextFixtureDef = bodyDef->fixtures;
+		
+		CCDictElement *fixture = NULL;
+		CCDICT_FOREACH(fixtureList, fixture)
+		{
+		
+			b2FixtureDef basicData;
+			CCDictionary *fixtureData = (CCDictionary *)fixture->getObject();
+
+			basicData.filter.categoryBits = static_cast<CCString *>(fixtureData->objectForKey("filter_categoryBits"))->intValue();
+            basicData.filter.maskBits = static_cast<CCString *>(fixtureData->objectForKey("filter_maskBits"))->intValue();
+            basicData.filter.groupIndex = static_cast<CCString *>(fixtureData->objectForKey("filter_groupIndex"))->intValue();
+            basicData.friction = static_cast<CCString *>(fixtureData->objectForKey("friction"))->floatValue();
+            basicData.density = static_cast<CCString *>(fixtureData->objectForKey("density"))->floatValue();
+            basicData.restitution = static_cast<CCString *>(fixtureData->objectForKey("restitution"))->floatValue();
+            basicData.isSensor = (bool)static_cast<CCString *>(fixtureData->objectForKey("isSensor"))->intValue();
+			if(fixtureData->objectForKey("id")){
+				basicData.fixID = static_cast<CCString *>(fixtureData->objectForKey("id"))->intValue();
+			}
+
+			CCString *cb = static_cast<CCString *>(fixtureData->objectForKey("userdataCbValue"));
+			
+            int callbackData = 0;
+			
+			if (cb)
+				callbackData = cb->intValue();
+            
+
+			std::string fixtureType = static_cast<CCString *>(fixtureData->objectForKey("fixture_type"))->getCString();
+
+			if (fixtureType == "POLYGON") {
+				CCDictionary *polygons = (CCDictionary *)fixtureData->objectForKey("polygons");
+				CCDictElement *polygon = NULL;
+				CCDICT_FOREACH(polygons, polygon)
+				{
+					FixtureDef *fix = new FixtureDef();
+					fix->fixture = basicData; // copy basic data
+					fix->callbackData = callbackData;
+
+					b2PolygonShape *polyshape = new b2PolygonShape();
+                    int vindex = 0;
+
+					CCDictionary *polygonData = (CCDictionary *)polygon->getObject();
+
+					assert(polygonData->count() <= b2_maxPolygonVertices);
+
+					CCDictElement *offset = NULL;
+					CCDICT_FOREACH(polygonData, offset)
+					{
+
+						CCString *pStr = (CCString *)offset->getObject();
+						CCPoint p = CCPointFromString(pStr->getCString());
+
+						vertices[vindex].x = (p.x / ptmRatio) ; 
+                        vertices[vindex].y = (p.y / ptmRatio) ; 
+                        vindex++;
+
+					}
+
+					polyshape->Set(vertices, vindex);
+                    fix->fixture.shape = polyshape;
+
+					nextFixtureDef = fix;
+                    nextFixtureDef = (fix->next);
+				}
+				
+			} else if (fixtureType == "CIRCLE") {
+				FixtureDef *fix = new FixtureDef();
+                fix->fixture = basicData; // copy basic data
+                fix->callbackData = callbackData;
+                
+				CCDictionary *circleData = (CCDictionary *)fixtureData->objectForKey("circle");
+
+                b2CircleShape *circleShape = new b2CircleShape();
+				
+                circleShape->m_radius = static_cast<CCString *>(circleData->objectForKey("radius"))->floatValue() / ptmRatio;
+				CCPoint p = CCPointFromString(static_cast<CCString *>(circleData->objectForKey("position"))->getCString());
+                circleShape->m_p = b2Vec2(p.x / ptmRatio, p.y / ptmRatio);
+                fix->fixture.shape = circleShape;
+				
+                // create a list
+                nextFixtureDef = fix;
+                nextFixtureDef = (fix->next);
+
+			} else {
+				CCAssert(0, "Unknown fixtureType");
+			}
+			
+			// add the body element to the hash
+			shapeObjects[bodyName->getCString()] = bodyDef;
+
+
+		}
+	}
+
+	/*
+	//bodyDict->begin();
 	std::string bodyName;
-	ObjectDict *bodyData;
+	CCDictionary *bodyData;
 	while ((bodyData = (ObjectDict *)bodyDict->next(&bodyName))) {
 		BodyDef *bodyDef = new BodyDef();
 		bodyDef->anchorPoint = CCPointFromString(static_cast<CCString *>(bodyData->objectForKey("anchorpoint"))->toStdString().c_str());
@@ -232,4 +341,5 @@ void GB2ShapeCache::addShapesWithFile(const std::string &plist) {
 			shapeObjects[bodyName] = bodyDef;
 		}
 	}
+	*/
 }

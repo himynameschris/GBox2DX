@@ -230,8 +230,8 @@ void GB2Node::setBodyShape(CCString *shapeName)
     if(shapeName)
     {
 		GB2ShapeCache *shapeCache = GB2ShapeCache::sharedGB2ShapeCache();
-		shapeCache->addFixturesToBody(_body, shapeName->toStdString().c_str());
-		ccNode->setAnchorPoint(shapeCache->anchorPointForShape(shapeName->toStdString().c_str()));        
+		shapeCache->addFixturesToBody(_body, shapeName->getCString());
+		ccNode->setAnchorPoint(shapeCache->anchorPointForShape(shapeName->getCString()));        
     }
 }
 

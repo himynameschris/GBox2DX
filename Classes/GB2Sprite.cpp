@@ -30,7 +30,8 @@
 GB2Sprite *GB2Sprite::initWithDynamicBody(CCString *shape, CCString *spriteName)
 {
 	
-	return (GB2Sprite *)GB2Node::initWithDynamicBody(shape, CCSprite::spriteWithSpriteFrameName(spriteName->toStdString().c_str()));
+	
+	return (GB2Sprite *)GB2Node::initWithDynamicBody(shape, CCSprite::spriteWithSpriteFrameName(spriteName->getCString()));
 
 }
 
@@ -38,14 +39,14 @@ GB2Sprite *GB2Sprite::initWithStaticBody(CCString *shape, CCString *spriteName)
 {
 	
 	
-	return (GB2Sprite *)GB2Node::initWithStaticBody(shape, CCSprite::spriteWithSpriteFrameName(spriteName->toStdString().c_str()));
+	return (GB2Sprite *)GB2Node::initWithStaticBody(shape, CCSprite::spriteWithSpriteFrameName(spriteName->getCString()));
 
 }
 
 GB2Sprite *GB2Sprite::initWithKinematicBody(CCString *shape, CCString *spriteName)
 {
 	
-	return (GB2Sprite *)GB2Node::initWithKinematicBody(shape, CCSprite::spriteWithSpriteFrameName(spriteName->toStdString().c_str()));
+	return (GB2Sprite *)GB2Node::initWithKinematicBody(shape, CCSprite::spriteWithSpriteFrameName(spriteName->getCString()));
 
 }
 
@@ -77,5 +78,5 @@ void GB2Sprite::setDisplayFrame(CCSpriteFrame *newFrame)
 
 void GB2Sprite::setDisplayFrameNamed(CCString *name)
 {
-	((CCSprite *)ccNode)->setDisplayFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(name->toStdString().c_str()));
+	((CCSprite *)ccNode)->setDisplayFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(name->getCString()));
 }

@@ -79,7 +79,10 @@ GB2Engine *GB2Engine::init()
 		engine->setworld(w);
 
         // schedule update
-		CCScheduler::sharedScheduler()->scheduleUpdateForTarget(engine, 0, false);
+		//CCScheduler::sharedScheduler removed in cocos2dx-rca-2.0
+		//CCScheduler::scheduleUpdateForTarget(engine, 0, false);
+		CCDirector::sharedDirector()->getScheduler()->scheduleUpdateForTarget(engine, 0, false);
+		
     }
 
     return engine;

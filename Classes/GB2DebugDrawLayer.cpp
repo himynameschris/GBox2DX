@@ -58,14 +58,12 @@ void GB2DebugDrawLayer::draw()
 {
 	// store render state
 	glDisable(GL_TEXTURE_2D);
-	glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-    
+	glDisableVertexAttribArray(0);
+	    
     // draw the world stuff
 	_world->DrawDebugData();
     
     // restore render state
 	glEnable(GL_TEXTURE_2D);
-	glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);	
+	glEnableVertexAttribArray(0);
 }
