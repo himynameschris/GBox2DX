@@ -7,6 +7,7 @@
 //  Generic Shape Cache for box2d
 //
 //  Created by Thomas Broquist
+//  Updated to Cocos2dx-2.0 by Chris Hannon
 //
 //      http://www.PhysicsEditor.de
 //      http://texturepacker.com
@@ -149,15 +150,18 @@ void GB2ShapeCache::addShapesWithFile(const std::string &plist) {
 		CCDictionary *bodyData = (CCDictionary *)pElement->getObject();
 		bodyDef->anchorPoint = CCPointFromString(static_cast<CCString *>(bodyData->objectForKey("anchorpoint"))->getCString());
 		
-		CCDictionary *fixtureList = (CCDictionary *)bodyData->objectForKey("fixtures");
+		//CCDictionary *fixtureList = (CCDictionary *)bodyData->objectForKey("fixtures");
+		CCArray *fixtureList = (CCArray *)bodyData->objectForKey("fixtures");
 		FixtureDef *nextFixtureDef = bodyDef->fixtures;
 		
-		CCDictElement *fixture = NULL;
-		CCDICT_FOREACH(fixtureList, fixture)
+		CCObject *fixture = NULL;
+		//CCDictionary *fixture = NULL;
+		CCARRAY_FOREACH(fixtureList, fixture)
+		//CCDICT_FOREACH(fixtureList, fixture)
 		{
 		
 			b2FixtureDef basicData;
-			CCDictionary *fixtureData = (CCDictionary *)fixture->getObject();
+			CCDictionary *fixtureData = (CCDictionary *)fixture;
 
 			basicData.filter.categoryBits = static_cast<CCString *>(fixtureData->objectForKey("filter_categoryBits"))->intValue();
             basicData.filter.maskBits = static_cast<CCString *>(fixtureData->objectForKey("filter_maskBits"))->intValue();
@@ -181,9 +185,12 @@ void GB2ShapeCache::addShapesWithFile(const std::string &plist) {
 			std::string fixtureType = static_cast<CCString *>(fixtureData->objectForKey("fixture_type"))->getCString();
 
 			if (fixtureType == "POLYGON") {
-				CCDictionary *polygons = (CCDictionary *)fixtureData->objectForKey("polygons");
-				CCDictElement *polygon = NULL;
-				CCDICT_FOREACH(polygons, polygon)
+				//CCDictionary *polygons = (CCDictionary *)fixtureData->objectForKey("polygons");
+				CCArray *polygons = (CCArray *)fixtureData->objectForKey("polygons");
+				//CCDictElement *polygon = NULL;
+				CCObject *polygon = NULL;
+				//CCDICT_FOREACH(polygons, polygon)
+				CCARRAY_FOREACH(polygons, polygon)
 				{
 					FixtureDef *fix = new FixtureDef();
 					fix->fixture = basicData; // copy basic data
@@ -192,15 +199,18 @@ void GB2ShapeCache::addShapesWithFile(const std::string &plist) {
 					b2PolygonShape *polyshape = new b2PolygonShape();
                     int vindex = 0;
 
-					CCDictionary *polygonData = (CCDictionary *)polygon->getObject();
+					//CCDictionary *polygonData = (CCDictionary *)polygon->getObject();
+					CCArray *polygonData = (CCArray *)polygon;
 
 					assert(polygonData->count() <= b2_maxPolygonVertices);
 
-					CCDictElement *offset = NULL;
-					CCDICT_FOREACH(polygonData, offset)
+					//CCDictElement *offset = NULL;
+					CCObject *offset = NULL;
+					//CCDICT_FOREACH(polygonData, offset)
+					CCARRAY_FOREACH(polygonData, offset)
 					{
 
-						CCString *pStr = (CCString *)offset->getObject();
+						CCString *pStr = (CCString *)offset;
 						CCPoint p = CCPointFromString(pStr->getCString());
 
 						vertices[vindex].x = (p.x / ptmRatio) ; 

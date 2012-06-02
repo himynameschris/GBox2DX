@@ -27,9 +27,6 @@
     <ClInclude Include="Classes\GLES-Render.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\GB2DebugDrawLayer.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="Classes\GB2Engine.h">
       <Filter>include</Filter>
     </ClInclude>
@@ -54,9 +51,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\GB2Contact.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\GB2DebugDrawLayer.cpp">
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Classes\GB2Engine.cpp">
