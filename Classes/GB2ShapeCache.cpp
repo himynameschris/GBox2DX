@@ -152,7 +152,7 @@ void GB2ShapeCache::addShapesWithFile(const std::string &plist) {
 		
 		//CCDictionary *fixtureList = (CCDictionary *)bodyData->objectForKey("fixtures");
 		CCArray *fixtureList = (CCArray *)bodyData->objectForKey("fixtures");
-		FixtureDef *nextFixtureDef = bodyDef->fixtures;
+		FixtureDef **nextFixtureDef = &(bodyDef->fixtures);
 		
 		CCObject *fixture = NULL;
 		//CCDictionary *fixture = NULL;
@@ -222,8 +222,8 @@ void GB2ShapeCache::addShapesWithFile(const std::string &plist) {
 					polyshape->Set(vertices, vindex);
                     fix->fixture.shape = polyshape;
 
-					nextFixtureDef = fix;
-                    nextFixtureDef = (fix->next);
+					*nextFixtureDef = fix;
+                    nextFixtureDef = &(fix->next);
 				}
 				
 			} else if (fixtureType == "CIRCLE") {
@@ -241,8 +241,8 @@ void GB2ShapeCache::addShapesWithFile(const std::string &plist) {
                 fix->fixture.shape = circleShape;
 				
                 // create a list
-                nextFixtureDef = fix;
-                nextFixtureDef = (fix->next);
+                *nextFixtureDef = fix;
+                nextFixtureDef = &(fix->next);
 
 			} else {
 				CCAssert(0, "Unknown fixtureType");

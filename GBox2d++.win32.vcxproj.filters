@@ -24,9 +24,6 @@
     <ClInclude Include="Classes\GB2Node.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\GLES-Render.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="Classes\GB2Engine.h">
       <Filter>include</Filter>
     </ClInclude>
@@ -46,6 +43,12 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="Classes\GB2Helper.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="classes\gb2debugdrawlayer.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GLES-Render.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
@@ -68,13 +71,16 @@
     <ClCompile Include="Classes\GB2WorldContactListener.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\GLES-Render.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
     <ClCompile Include="Classes\GB2Action.cpp">
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="GBox2D.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\GB2DebugDrawLayer.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\GLES-Render.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

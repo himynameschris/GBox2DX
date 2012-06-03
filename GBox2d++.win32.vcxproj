@@ -14,6 +14,7 @@
     <ClInclude Include="Classes\GB2Action.h" />
     <ClInclude Include="Classes\GB2Config.h" />
     <ClInclude Include="Classes\GB2Contact.h" />
+    <ClInclude Include="classes\gb2debugdrawlayer.h" />
     <ClInclude Include="Classes\GB2Engine.h" />
     <ClInclude Include="Classes\GB2Node.h" />
     <ClInclude Include="Classes\GB2ShapeCache.h" />
@@ -26,6 +27,7 @@
   <ItemGroup>
     <ClCompile Include="Classes\GB2Action.cpp" />
     <ClCompile Include="Classes\GB2Contact.cpp" />
+    <ClCompile Include="Classes\GB2DebugDrawLayer.cpp" />
     <ClCompile Include="Classes\GB2Engine.cpp" />
     <ClCompile Include="Classes\GB2Node.cpp" />
     <ClCompile Include="Classes\GB2ShapeCache.cpp" />

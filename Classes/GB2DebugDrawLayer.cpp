@@ -24,13 +24,13 @@ GB2DebugDrawLayer *GB2DebugDrawLayer::init()
 		b2World *bworld = GB2Engine::sharedInstance()->getworld();
 
         // Enable debug draw
-		GLESDebugDraw *debugDraw = new GLESDebugDraw( PTM_RATIO * CCDirector::sharedDirector()->getContentScaleFactor());
+		GLESDebugDraw *debugDraw = new GLESDebugDraw( PTM_RATIO );
         
-        // Set the flags
+		// Set the flags
         uint32 flags = 0;
 		
         flags += e_shapeBit;
-        // flags += b2DebugDraw::e_aabbBit;
+        //flags += e_aabbBit;
         flags += e_centerOfMassBit;
         
         debugDraw->SetFlags(flags);
@@ -57,13 +57,26 @@ GB2DebugDrawLayer::~GB2DebugDrawLayer()
 void GB2DebugDrawLayer::draw()
 {
 	// store render state
-	glDisable(GL_TEXTURE_2D);
-	glDisableVertexAttribArray(0);
+	//glDisable(GL_TEXTURE_2D);
+	//glDisableVertexAttribArray(0);
 	    
     // draw the world stuff
-	_world->DrawDebugData();
+	
     
     // restore render state
-	glEnable(GL_TEXTURE_2D);
-	glEnableVertexAttribArray(0);
+	//glEnable(GL_TEXTURE_2D);
+	//glEnableVertexAttribArray(0);
+	//ccGLEnableVertexAttribs(0);
+
+	CCLayer::draw();
+
+    ccGLEnableVertexAttribs( kCCVertexAttribFlag_Position );
+
+    kmGLPushMatrix();
+
+   _world->DrawDebugData();
+
+    kmGLPopMatrix();
+
+    CHECK_GL_ERROR_DEBUG();
 }
