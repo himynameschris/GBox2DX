@@ -79,8 +79,6 @@ GB2Engine *GB2Engine::init()
 		engine->setworld(w);
 
         // schedule update
-		//CCScheduler::sharedScheduler removed in cocos2dx-rca-2.0
-		//CCScheduler::scheduleUpdateForTarget(engine, 0, false);
 		CCDirector::sharedDirector()->getScheduler()->scheduleUpdateForTarget(engine, 0, false);
 		
     }
@@ -100,7 +98,6 @@ void GB2Engine::deleteAllObjects()
 			if(o)
 			{
 				// destroy physics object
-				//o->deleteNow();     
 				o->getCCNode()->removeFromParentAndCleanup(true);
 				o->setCCNode(NULL);
 				
@@ -139,7 +136,6 @@ void GB2Engine::update(ccTime dt)
     
 	// step the world
 	world->Step(timeStep, velocityIterations, positionIterations);
-	//CCLog("CCEngine::update()");
 	
 	std::vector<GB2Node *>toDestroy;
 
@@ -174,20 +170,3 @@ void GB2Engine::iterateObjectsWithBlock(GB2NodeCallBack *callback)
 	   
 }
 
-/*
-SEL_CallFuncND *GB2Engine::findSelector(CCString name)
-{
-	std::map<CCString*, SEL_CallFuncND*>::iterator it = _selectors->begin();
-	
-	for(itr = mymap.begin(); itr != mymap.end(); ++itr){
-		cout << "Key: " << (*itr).first << " Value: " << (*itr).second;
-	}
-
-	return _selectors->(&name);
-}
-
-void GB2Engine::addSelector(CCString *name, SEL_CallFuncND func)
-{
-	_selectors->setObject(&func, name);
-}
-*/

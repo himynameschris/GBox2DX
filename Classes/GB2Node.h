@@ -28,7 +28,6 @@
 #include "cocos2d.h"
 #include "../../Box2d/Box2D.h"
 #include "GB2ShapeCache.h"
-//#include "GB2Contact.h"
 
 using namespace cocos2d;
 
@@ -41,7 +40,6 @@ public:
 	CC_SYNTHESIZE(bool, deleteLater, DeleteLater); 
 	CC_SYNTHESIZE(b2World*, _world, World); 
 	CC_SYNTHESIZE(b2Body*, _body, Body); 
-	//CC_SYNTHESIZE(CCString*, _name, Name);  
 	CC_SYNTHESIZE(int, _tag, ObjTag); 
  	CC_SYNTHESIZE(int, _animPhase, AnimPhase);
 
@@ -449,14 +447,8 @@ public:
 	void setName(CCString *name);
 	CCString *getName();
 
-	//GB2Node* initWithShape(CCString shape, b2BodyType bodytype, CCNode *node);
-
 protected:
-	//b2Body* body; //!< pointer to the box2d's body
-	//b2World* _world; //!< pointer to the world object
 	int _objectTag; //!< tag might be used to query an object
-	//CCNode *ccNode; //!< reference to the ccNode, retained
-	//bool deleteLater; //!< flag to delete the object on update phase
 	CCString *_name;
 
 };

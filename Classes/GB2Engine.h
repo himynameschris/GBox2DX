@@ -69,13 +69,7 @@ public:
 	 */
 	void iterateObjectsWithBlock(GB2NodeCallBack *callback);
 
-	SEL_CallFuncND *findSelector(CCString name);
-	void addSelector(CCString *name, SEL_CallFuncND func);
-
 protected:
-	//GB2WorldContactListener *worldContactListener;
-	//std::map <CCString*, SEL_CallFuncND*> *_selectors;
-	//b2World *world;
 
 };
 
