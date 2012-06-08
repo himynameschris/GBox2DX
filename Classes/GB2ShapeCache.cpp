@@ -7,11 +7,12 @@
 //  Generic Shape Cache for box2d
 //
 //  Created by Thomas Broquist
-//  Updated to Cocos2dx-2.0 by Chris Hannon
 //
 //      http://www.PhysicsEditor.de
 //      http://texturepacker.com
 //      http://www.code-and-web.de
+//
+//	Copyright (c) 2012 Chris Hannon / channon.us
 //  
 //  All rights reserved.
 //
@@ -116,12 +117,7 @@ cocos2d::CCPoint GB2ShapeCache::anchorPointForShape(const std::string &shape) {
 	return bd->anchorPoint;
 }
 
-//typedef CCDictionary ObjectDict;
-
 void GB2ShapeCache::addShapesWithFile(const std::string &plist) {
-
-	//const char *fullName = CCFileUtils::fullPathFromRelativeFile(plist.c_str(), plist.c_str());
-	//CCLog("GB2ShapeCache::addShapesWithFile plist:%s, fullName:%s", plist.c_str(), fullName);
 
 	CCDictionary *dict = CCDictionary::dictionaryWithContentsOfFileThreadSafe(plist.c_str());
 	CCAssert(dict != NULL, "Shape-file not found"); // not triggered - cocos2dx delivers empty dict if non was found
@@ -136,10 +132,6 @@ void GB2ShapeCache::addShapesWithFile(const std::string &plist) {
 
     b2Vec2 vertices[b2_maxPolygonVertices];
 
-	//ObjectDict::CCObjectMapIter iter;
-	
-	//std::string bodyName = NULL;
-	//CCDictionary *bodyData;
 	CCDictElement* pElement = NULL;
 	CCDICT_FOREACH(bodyDict, pElement)
 	{
@@ -150,18 +142,16 @@ void GB2ShapeCache::addShapesWithFile(const std::string &plist) {
 		CCDictionary *bodyData = (CCDictionary *)pElement->getObject();
 		bodyDef->anchorPoint = CCPointFromString(static_cast<CCString *>(bodyData->objectForKey("anchorpoint"))->getCString());
 		
-		//CCDictionary *fixtureList = (CCDictionary *)bodyData->objectForKey("fixtures");
 		CCArray *fixtureList = (CCArray *)bodyData->objectForKey("fixtures");
 		FixtureDef **nextFixtureDef = &(bodyDef->fixtures);
 		
 		CCObject *fixture = NULL;
-		//CCDictionary *fixture = NULL;
 		CCARRAY_FOREACH(fixtureList, fixture)
-		//CCDICT_FOREACH(fixtureList, fixture)
 		{
 		
 			b2FixtureDef basicData;
 			CCDictionary *fixtureData = (CCDictionary *)fixture;
+			int callbackData = 0;
 
 			basicData.filter.categoryBits = static_cast<CCString *>(fixtureData->objectForKey("filter_categoryBits"))->intValue();
             basicData.filter.maskBits = static_cast<CCString *>(fixtureData->objectForKey("filter_maskBits"))->intValue();
@@ -171,18 +161,12 @@ void GB2ShapeCache::addShapesWithFile(const std::string &plist) {
             basicData.restitution = static_cast<CCString *>(fixtureData->objectForKey("restitution"))->floatValue();
             basicData.isSensor = (bool)static_cast<CCString *>(fixtureData->objectForKey("isSensor"))->intValue();
 			if(fixtureData->objectForKey("id")){
-				basicData.fixID = static_cast<CCString *>(fixtureData->objectForKey("id"))->intValue();
+				basicData.userData = static_cast<CCString *>(fixtureData->objectForKey("id"));
+				callbackData = static_cast<CCString *>(fixtureData->objectForKey("id"))->intValue();
 			}
 
-			CCString *cb = static_cast<CCString *>(fixtureData->objectForKey("userdataCbValue"));
-			
-            int callbackData = 0;
-			
-			if (cb)
-				callbackData = cb->intValue();
-            
-
 			std::string fixtureType = static_cast<CCString *>(fixtureData->objectForKey("fixture_type"))->getCString();
+			//CCString *fixtureType = static_cast<CCString *>(fixtureData->objectForKey("fixture_type"))->getCString();
 
 			if (fixtureType == "POLYGON") {
 				//CCDictionary *polygons = (CCDictionary *)fixtureData->objectForKey("polygons");
@@ -251,105 +235,8 @@ void GB2ShapeCache::addShapesWithFile(const std::string &plist) {
 			// add the body element to the hash
 			shapeObjects[bodyName->getCString()] = bodyDef;
 
-
 		}
+
 	}
 
-	/*
-	//bodyDict->begin();
-	std::string bodyName;
-	CCDictionary *bodyData;
-	while ((bodyData = (ObjectDict *)bodyDict->next(&bodyName))) {
-		BodyDef *bodyDef = new BodyDef();
-		bodyDef->anchorPoint = CCPointFromString(static_cast<CCString *>(bodyData->objectForKey("anchorpoint"))->toStdString().c_str());
-		
-		CCMutableArray<ObjectDict *> *fixtureList = (CCMutableArray<ObjectDict *> *)(bodyData->objectForKey("fixtures"));
-        FixtureDef **nextFixtureDef = &(bodyDef->fixtures);
-
-		CCMutableArray<ObjectDict *>::CCMutableArrayIterator iter;
-		for (iter = fixtureList->begin(); iter != fixtureList->end(); ++iter) {
-            b2FixtureDef basicData;
-            ObjectDict *fixtureData = *iter;
-			
-            basicData.filter.categoryBits = static_cast<CCString *>(fixtureData->objectForKey("filter_categoryBits"))->toInt();
-            basicData.filter.maskBits = static_cast<CCString *>(fixtureData->objectForKey("filter_maskBits"))->toInt();
-            basicData.filter.groupIndex = static_cast<CCString *>(fixtureData->objectForKey("filter_groupIndex"))->toInt();
-            basicData.friction = static_cast<CCString *>(fixtureData->objectForKey("friction"))->toFloat();
-            basicData.density = static_cast<CCString *>(fixtureData->objectForKey("density"))->toFloat();
-            basicData.restitution = static_cast<CCString *>(fixtureData->objectForKey("restitution"))->toFloat();
-            basicData.isSensor = (bool)static_cast<CCString *>(fixtureData->objectForKey("isSensor"))->toInt();
-			if(fixtureData->objectForKey("id")){
-				basicData.fixID = static_cast<CCString *>(fixtureData->objectForKey("id"))->toInt();
-				//CLog("basicData.fixID: i%", basicData.fixID);
-			}
-
-			CCString *cb = static_cast<CCString *>(fixtureData->objectForKey("userdataCbValue"));
-			
-            int callbackData = 0;
-			
-			if (cb)
-				callbackData = cb->toInt();
-            
-			std::string fixtureType = static_cast<CCString *>(fixtureData->objectForKey("fixture_type"))->toStdString();
-			
-			if (fixtureType == "POLYGON") {
-				CCMutableArray<ObjectDict *> *polygonsArray = (CCMutableArray<ObjectDict *> *)(fixtureData->objectForKey("polygons"));
-				CCMutableArray<ObjectDict *>::CCMutableArrayIterator iter;
-
-				for (iter = polygonsArray->begin(); iter != polygonsArray->end(); ++iter) {
-                    FixtureDef *fix = new FixtureDef();
-                    fix->fixture = basicData; // copy basic data
-                    fix->callbackData = callbackData;
-					
-                    b2PolygonShape *polyshape = new b2PolygonShape();
-                    int vindex = 0;
-                    
-					CCMutableArray<CCString *> *polygonArray = (CCMutableArray<CCString *> *)(*iter);
-
-                    assert(polygonArray->count() <= b2_maxPolygonVertices);
-
-					CCMutableArray<CCString *>::CCMutableArrayIterator piter;
-					
-					for (piter = polygonArray->begin(); piter != polygonArray->end(); ++piter) {
-                        CCPoint offset = CCPointFromString((*piter)->toStdString().c_str());
-                        vertices[vindex].x = (offset.x / ptmRatio) ; 
-                        vertices[vindex].y = (offset.y / ptmRatio) ; 
-                        vindex++;
-                    }
-                    
-                    polyshape->Set(vertices, vindex);
-                    fix->fixture.shape = polyshape;
-                    
-                    // create a list
-                    *nextFixtureDef = fix;
-                    nextFixtureDef = &(fix->next);
-				}
-				
-			} else if (fixtureType == "CIRCLE") {
-				FixtureDef *fix = new FixtureDef();
-                fix->fixture = basicData; // copy basic data
-                fix->callbackData = callbackData;
-                
-                ObjectDict *circleData = (ObjectDict *)fixtureData->objectForKey("circle");
-                
-                b2CircleShape *circleShape = new b2CircleShape();
-				
-                circleShape->m_radius = static_cast<CCString *>(circleData->objectForKey("radius"))->toFloat() / ptmRatio;
-				CCPoint p = CCPointFromString(static_cast<CCString *>(circleData->objectForKey("position"))->toStdString().c_str());
-                circleShape->m_p = b2Vec2(p.x / ptmRatio, p.y / ptmRatio);
-                fix->fixture.shape = circleShape;
-				
-                // create a list
-                *nextFixtureDef = fix;
-                nextFixtureDef = &(fix->next);
-
-			} else {
-				CCAssert(0, "Unknown fixtureType");
-			}
-			
-			// add the body element to the hash
-			shapeObjects[bodyName] = bodyDef;
-		}
-	}
-	*/
 }

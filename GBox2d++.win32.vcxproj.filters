@@ -36,9 +36,6 @@
     <ClInclude Include="Classes\GB2WorldContactListener.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\GB2Action.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="GBox2D.h">
       <Filter>include</Filter>
     </ClInclude>
@@ -69,9 +66,6 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Classes\GB2WorldContactListener.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\GB2Action.cpp">
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="GBox2D.cpp">

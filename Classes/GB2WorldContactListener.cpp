@@ -6,6 +6,8 @@
  For more information about htis module visit
  http://www.PhysicsEditor.de
 
+ Copyright (c) 2012 Chris Hannon / channon.us
+
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
@@ -28,7 +30,6 @@
 #include "Box2D.h"
 #include "GB2Contact.h"
 #include "GB2WorldContactListener.h"
-#include "GB2Action.h"
 #include <sstream>
 
 using namespace std;
@@ -86,118 +87,7 @@ void GB2WorldContactListener::notifyObjects(b2Contact *contact, int contactType)
 	{
 		nodeB->Contact(contactWithA);
 	}
-	
-	/*
-	switch(nodeA->getobjTag())
-	{
-	case 1:
-		((Object *)contact->GetFixtureA()->GetBody()->GetUserData())->Contact(contactWithB);
-		break;
-	case 2:
-		((Floor *)contact->GetFixtureA()->GetBody()->GetUserData())->Contact(contactWithB);
-		break;
-	case 3:
-		((Monkey *)contact->GetFixtureA()->GetBody()->GetUserData())->Contact(contactWithB);
-		break;
-	default:
-		nodeA->Contact(contactWithB);
-		break;
-	}
 
-	switch(nodeB->getobjTag())
-	{
-	case 1:
-		((Object *)contact->GetFixtureB()->GetBody()->GetUserData())->Contact(contactWithA);
-		break;
-	case 2:
-		((Floor *)contact->GetFixtureB()->GetBody()->GetUserData())->Contact(contactWithA);
-		break;
-	case 3:
-		((Monkey *)contact->GetFixtureA()->GetBody()->GetUserData())->Contact(contactWithA);
-		break;
-	default:
-		nodeB->Contact(contactWithA);
-		break;
-	}
-	
-	*/
-
-	/*
-	Channon: cocos2dx dynamic selectors, having an issue with class inheritance
-	CCLog("NOTIFIED");
-
-	SEL_CallFuncND cfs = callfuncND_selector(GB2Node::Contact);
-
-	CCCallFuncND *cf = CCCallFuncND::actionWithTarget((GB2Node *)contact->GetFixtureA()->GetBody()->GetUserData(), cfs, contact->GetFixtureA()->GetBody()->GetUserData());
-	
-	cf->execute();
-
-	cf->release();
-	*/
-
-
-	/*
-	Version from Anreas Loew's Original Objective C
-    b2Body *bodyA = contact->GetFixtureA()->GetBody();
-    b2Body *bodyB = contact->GetFixtureB()->GetBody();
-    
-    GB2Node *a = (GB2Node *)bodyA->GetUserData();
-    GB2Node *b = (GB2Node *)bodyB->GetUserData();
-    
-	
-	CCString *nameContactUniversal = contactType;
-    CCString *nameContactA = [NSString stringWithFormat:@"%@With%@:", contactType, NSStringFromClass([a class])];
-    CCString *nameContactB = [NSString stringWithFormat:@"%@With%@:", contactType, NSStringFromClass([b class])];
-    
-    SEL selectorContactWithB = NSSelectorFromString(nameContactB);
-    SEL selectorContactUniversal = NSSelectorFromString(nameContactUniversal);
-    if([a respondsToSelector:selectorContactWithB])
-    {
-        // perform designated contact listener
-        GB2Contact *contactWithB = [GB2Contact contactWithObject:a 
-                                                ownFixture:contact->GetFixtureA() 
-                                               otherObject:b  
-                                              otherFixture:contact->GetFixtureB()
-                                                 b2Contact:contact
-                                 ];    
-        [a performSelector:selectorContactWithB withObject:contactWithB];
-    }        
-    else if([a respondsToSelector:selectorContactUniversal])
-    {
-        // perform universal contact listener
-        GB2Contact *contactWithB = [GB2Contact contactWithObject:a 
-                                                ownFixture:contact->GetFixtureA() 
-                                               otherObject:b  
-                                              otherFixture:contact->GetFixtureB()
-                                                 b2Contact:contact
-                                ];    
-        [a performSelector:selectorContactUniversal withObject:contactWithB];        
-    }
-    
-    SEL selectorContactWithA = NSSelectorFromString(nameContactA);
-    if([b respondsToSelector:selectorContactWithA])
-    {
-        // perform designated contact listener
-        GB2Contact *contactWithA = [GB2Contact contactWithObject:b 
-                                                ownFixture:contact->GetFixtureB() 
-                                               otherObject:a  
-                                              otherFixture:contact->GetFixtureA()
-                                                 b2Contact:contact
-                                 ];
-        [b performSelector:selectorContactWithA withObject:contactWithA];
-    }    
-    else if([b respondsToSelector:selectorContactUniversal])
-    {
-        // perform universal contact listener
-        GB2Contact *contactWithA = [GB2Contact contactWithObject:b 
-                                                ownFixture:contact->GetFixtureB()
-                                               otherObject:a
-                                              otherFixture:contact->GetFixtureA()
-                                                 b2Contact:contact
-                                 ];
-        [b performSelector:selectorContactUniversal withObject:contactWithA];        
-    }
-	*/
 }
 
 /// Called when two fixtures begin to touch.
