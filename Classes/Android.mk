@@ -18,10 +18,10 @@ LOCAL_SRC_FILES := GB2Contact.cpp \
 				   GLES-Render.cpp
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
-							$(LOCAL_PATH)/../../Box2d
+							$(LOCAL_PATH)/../../Box2D
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../cocos2dx \
-					$(LOCAL_PATH)/../../Box2d \
+					$(LOCAL_PATH)/../../Box2D \
                     $(LOCAL_PATH)/../../cocos2dx/platform \
                     $(LOCAL_PATH)/../../cocos2dx/platform/third_party/android/modules \
                     $(LOCAL_PATH)/../../cocos2dx/include \

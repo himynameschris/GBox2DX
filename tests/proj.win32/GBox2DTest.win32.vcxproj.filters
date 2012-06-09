@@ -51,11 +51,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="GBox2DTest.rc">
-      <Filter>resource</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="resource.h">
       <Filter>include</Filter>
     </ClInclude>

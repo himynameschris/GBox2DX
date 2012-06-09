@@ -1,6 +1,15 @@
 GBox2DX: C++ wrapper for Box2D and Cocos2d-x
 -Based on the GBox2D repo by Andreas Loew
 
+Usage:
+-drop the GBoxDX repo into your cocos2d-x gles2.0 or later root folder
+-add the GBox2DX library project and test projects into your cocos2dx solution
+-update the project dependencies with "libGBox2D.lib"
+-update GBox2D VS Project paths to cocos2d-x as needed
+
+Android:
+-also includes make file for shared or static library on android-ndk-r7b
+
 /*
  MIT License
  

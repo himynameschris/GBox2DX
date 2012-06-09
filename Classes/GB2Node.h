@@ -26,7 +26,7 @@
 #define __GB2NODE_H__
 
 #include "cocos2d.h"
-#include "../../Box2d/Box2D.h"
+#include "Box2D.h"
 #include "GB2ShapeCache.h"
 
 using namespace cocos2d;

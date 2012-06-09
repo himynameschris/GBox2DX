@@ -1,0 +1,8 @@
+﻿Debug.win32/*
+Debug.win32/*
+tests/.metadata/*
+tests/proj.win32/Debug.win32/*
+tests/proj.android/bin/classes/org/cocos2dx/lib/*
+tests/proj.android/bin/*
+tests/proj.android/obj/*
+tests/proj.android/libs/*
