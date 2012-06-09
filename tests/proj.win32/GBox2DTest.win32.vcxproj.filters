@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="source">
+      <UniqueIdentifier>{d3867eaf-6ab1-45b8-83ba-ad933943a66c}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{37b89069-d394-4569-aaeb-8e6d20fcbf60}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
+    </Filter>
+    <Filter Include="resource">
+      <UniqueIdentifier>{7d1bfa0e-7550-4c11-9de1-675bcefe0296}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;jpg;jpeg;jpe;png;manifest</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\GBox2DTest.ico">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\CloseSelected.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\CloseNormal.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\HelloWorld.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\fps_images.fnt" />
+    <None Include="..\Resources\fps_images.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\bullet.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\GBox2DTestPhysics.plist">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\GBox2DTestSprites.plist">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\GBox2DTestSprites.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\GBox2DTestSprites.pvr.ccz">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\TinyFrog.png">
+      <Filter>resource</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GBox2DTest.rc">
+      <Filter>resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HelloWorldScene.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TestScene.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TestScreenEdge.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TestScene.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TestScreenEdge.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
