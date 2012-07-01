@@ -4,11 +4,14 @@ LOCAL_PATH := $(call my-dir)
 
 LOCAL_MODULE := gbox2d_static
 
+APP_STL := stlport_static
+
 #LOCAL_MODULE := libgbox2d
 
 LOCAL_MODULE_FILENAME := libgbox2d
 
 LOCAL_SRC_FILES := GB2Contact.cpp \
+                   GB2CollisionRegistry.cpp \
 				   GB2DebugDrawLayer.cpp \
 				   GB2Engine.cpp \
 				   GB2Node.cpp \
@@ -43,6 +46,8 @@ include $(BUILD_STATIC_LIBRARY)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := gbox2d_shared
+
+APP_STL := stlport_static
 
 #LOCAL_MODULE := libgbox2d
 

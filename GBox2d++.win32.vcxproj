@@ -11,11 +11,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Classes\GB2Collision.h" />
+    <ClInclude Include="Classes\GB2CollisionRegistry.h" />
     <ClInclude Include="Classes\GB2Config.h" />
     <ClInclude Include="Classes\GB2Contact.h" />
+    <ClInclude Include="Classes\GB2ContactCallback.h" />
     <ClInclude Include="classes\gb2debugdrawlayer.h" />
     <ClInclude Include="Classes\GB2Engine.h" />
     <ClInclude Include="Classes\GB2Node.h" />
+    <ClInclude Include="Classes\GB2Object.h" />
     <ClInclude Include="Classes\GB2ShapeCache.h" />
     <ClInclude Include="Classes\GB2Sprite.h" />
     <ClInclude Include="Classes\GB2WorldContactListener.h" />
@@ -24,6 +28,7 @@
     <ClInclude Include="GBox2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Classes\GB2CollisionRegistry.cpp" />
     <ClCompile Include="Classes\GB2Contact.cpp" />
     <ClCompile Include="Classes\GB2DebugDrawLayer.cpp" />
     <ClCompile Include="Classes\GB2Engine.cpp" />

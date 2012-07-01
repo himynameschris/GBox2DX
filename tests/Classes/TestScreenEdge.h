@@ -17,7 +17,11 @@ public:
 
 	void setLevelLayer(TestScene *layer);
 	TestScene * getLevelLayer();
+
+	void beginContactWithGB2Node(GB2Node* otherObject, GB2Collision *c);
 	
+	COLLISION_OBJECT(TestScreenEdge)
+
 protected:
 	TestScene *m_levelLayer;
 

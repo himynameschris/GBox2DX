@@ -28,7 +28,8 @@
  */
 
 #include "Box2D.h"
-#include "GB2Contact.h"
+#include "GB2Collision.h"
+#include "GB2CollisionRegistry.h"
 #include "GB2WorldContactListener.h"
 #include <sstream>
 
@@ -60,10 +61,21 @@ GB2WorldContactListener::~GB2WorldContactListener()
  * @param contact the b2Contact 
  * @param contactType string containing "beginContact", "endContact" or "presolveContact"
  */
-void GB2WorldContactListener::notifyObjects(b2Contact *contact, int contactType)
+void GB2WorldContactListener::notifyObjects(b2Contact *contact, std::string contactType)
 {
+	GB2Collision *c = new GB2Collision();
+
+	b2Body *bodyA = contact->GetFixtureA()->GetBody();
+	b2Body *bodyB = contact->GetFixtureB()->GetBody();
 	
-	//current version: all contact logic is contained within one function in each class 
+	GB2Node *nodeA = (GB2Node *)(bodyA->GetUserData());
+	GB2Node *nodeB = (GB2Node *)(bodyB->GetUserData());
+
+	theCollisionRegistry()->callCollision(nodeA, nodeB, c, contactType.c_str());
+	theCollisionRegistry()->callCollision(nodeB, nodeA, c, contactType.c_str());
+
+	/*
+	//previous version: all contact logic is contained within one function in each class 
 	
 	//first step, determine contact type
 	//CCLog("contact notification type: %i", contactType);
@@ -87,19 +99,19 @@ void GB2WorldContactListener::notifyObjects(b2Contact *contact, int contactType)
 	{
 		nodeB->Contact(contactWithA);
 	}
-
+	*/
 }
 
 /// Called when two fixtures begin to touch.
 void GB2WorldContactListener::BeginContact(b2Contact* contact) 
 {
-    notifyObjects(contact, 1);        
+    notifyObjects(contact, "begin");        
 }
 
 /// Called when two fixtures cease to touch.
 void GB2WorldContactListener::EndContact(b2Contact* contact) 
 { 
-    notifyObjects(contact, 2);
+    notifyObjects(contact, "end");
 }
 
 /// This is called after a contact is updated. This allows you to inspect a
@@ -117,7 +129,7 @@ void GB2WorldContactListener::PreSolve(b2Contact* contact, const b2Manifold* old
     B2_NOT_USED(contact);
     B2_NOT_USED(oldManifold);
 
-    notifyObjects(contact, 0);        
+    notifyObjects(contact, "pre");        
 }
 
 /// This lets you inspect a contact after the solver is finished. This is useful
@@ -130,6 +142,8 @@ void GB2WorldContactListener::PostSolve(b2Contact* contact, const b2ContactImpul
 {
     B2_NOT_USED(contact);
     B2_NOT_USED(impulse);
+
+	notifyObjects(contact, "post");
 }
 
 

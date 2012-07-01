@@ -48,6 +48,18 @@
     <ClInclude Include="Classes\GLES-Render.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\GB2Collision.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GB2ContactCallback.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GB2CollisionRegistry.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GB2Object.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\GB2Contact.cpp">
@@ -75,6 +87,9 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Classes\GLES-Render.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\GB2CollisionRegistry.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

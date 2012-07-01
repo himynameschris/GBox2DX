@@ -1,6 +1,7 @@
 /*
  MIT License
  
+ Copyright (c) 2010 Andreas Loew / www.code-and-web.de
  Copyright (c) 2012 Chris Hannon / channon.us
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,28 +22,14 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  */
+#ifndef __GB2OBJECT_H__
+#define __GB2OBJECT_H__
 
-#ifndef GBOX2D_H
-#define GBOX2D_H
+class GB2Object
+{
+	virtual const char *nameForObject() const = 0;
+};
 
-#include "Classes\GB2Config.h"
-#include "Classes\GB2Collision.h"
-#include "Classes\GB2DebugDrawLayer.h"
-#include "Classes\GB2Engine.h"
-#include "Classes\GB2Node.h"
-#include "Classes\GB2ShapeCache.h"
-#include "Classes\GB2Sprite.h"
-#include "Classes\GB2WorldContactListener.h"
-#include "Classes\GB2Helper.h"
-#include "Classes\GB2CollisionRegistry.h"
-#include "Classes\GB2Object.h"
-#include "Classes\GB2Contact.h"
-#include "Classes\GB2ContactCallback.h"
+#define COLLISION_OBJECT(A) const char *nameForObject() const {return #A;}
 
-namespace   gbox2d {
-
-const char* gbox2dVersion();
-
-}//namespace   gbox2d 
-
-#endif // GBOX2D_H
+#endif // __GB2OBJECT_H__

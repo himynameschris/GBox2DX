@@ -27,13 +27,14 @@
 
 #include "cocos2d.h"
 #include "Box2D.h"
+#include "GB2Object.h"
 #include "GB2ShapeCache.h"
 
 using namespace cocos2d;
 
 class GB2Contact;
 
-class GB2Node : public CCNode
+class GB2Node : public CCNode, GB2Object
 {
 public:
 	CC_SYNTHESIZE(CCNode*, ccNode, CCNode);  
@@ -447,6 +448,8 @@ public:
 	void setName(CCString *name);
 	CCString *getName();
 
+	COLLISION_OBJECT(GB2Node)
+
 protected:
 	int _objectTag; //!< tag might be used to query an object
 	CCString *_name;
@@ -454,3 +457,4 @@ protected:
 };
 
 #endif  // __GB2NODE_H__
+

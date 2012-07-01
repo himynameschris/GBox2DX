@@ -90,14 +90,12 @@ public:
 	virtual void EndContact(b2Contact* contact);
 	virtual void PreSolve(b2Contact* contact, const b2Manifold* oldManifold);
 	virtual void PostSolve(b2Contact* contact, const b2ContactImpulse* impulse);    
-    void notifyObjects(b2Contact *contact, int contactType);
+	void notifyObjects(b2Contact *contact, std::string contactType);
 protected:
 };
 
 typedef void (GB2Node::*SEL_CallFuncGD)(GB2Node*, void*);
 
 #define callfuncGD_selector(_SELECTOR) (SEL_CallFuncGD)(&_SELECTOR)
-
-
 
 #endif  // __GB2ENGINE_H__

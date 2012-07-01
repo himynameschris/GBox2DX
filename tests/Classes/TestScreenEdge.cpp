@@ -1,6 +1,8 @@
 #include "TestScreenEdge.h"
 #include "TestScene.h"
 
+BEGIN_COLLISION(TestScreenEdge, GB2Node)
+
 TestScreenEdge::TestScreenEdge()
 {
 
@@ -18,6 +20,15 @@ void TestScreenEdge::Contact(GB2Contact *contact)
 	CCString *fixID = (CCString *)contact->getotherFixture()->GetUserData();
 
 	oobject->setDeleteLater(true);
+
+}
+
+void TestScreenEdge::beginContactWithGB2Node(GB2Node* otherObject, GB2Collision *c)
+{
+
+	CCLog("TestScreenEdge::beginContactWithGB2Node");
+
+	otherObject->setDeleteLater(true);
 
 }
 
