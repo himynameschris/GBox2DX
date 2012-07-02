@@ -18,9 +18,6 @@
     <ClInclude Include="Classes\GB2Config.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\GB2Contact.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="Classes\GB2Node.h">
       <Filter>include</Filter>
     </ClInclude>
@@ -28,9 +25,6 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="Classes\GB2ShapeCache.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\GB2Sprite.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="Classes\GB2WorldContactListener.h">
@@ -62,9 +56,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Classes\GB2Contact.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
     <ClCompile Include="Classes\GB2Engine.cpp">
       <Filter>source</Filter>
     </ClCompile>
@@ -72,9 +63,6 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Classes\GB2ShapeCache.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\GB2Sprite.cpp">
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Classes\GB2WorldContactListener.cpp">

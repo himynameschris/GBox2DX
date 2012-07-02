@@ -27,6 +27,8 @@
 
 USING_NS_CC;
 
+USING_NS_GB;
+
 GLESDebugDraw::GLESDebugDraw()
     : mRatio( 1.0f )
 {

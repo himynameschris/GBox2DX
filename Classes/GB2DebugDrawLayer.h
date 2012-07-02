@@ -25,9 +25,8 @@
 #ifndef __GB2DEBUGDRAWLAYER_H__
 #define __GB2DEBUGDRAWLAYER_H__
 
+#include "GB2Config.h"
 #include "cocos2d.h"
-
-using namespace cocos2d;
 
 class b2World;
 class GLESDebugDraw;
@@ -38,20 +37,31 @@ class GLESDebugDraw;
  * Detects retina display
  */
 
-class GB2DebugDrawLayer : public CCLayer
+NS_GB_BEGIN
+
+class GB2DebugDrawLayer : public cocos2d::CCLayer
 {
 protected:
-	CC_SYNTHESIZE(b2World*, _world, World);  
-	CC_SYNTHESIZE(GLESDebugDraw*, _debugDraw, DebugDraw); 
+	CC_SYNTHESIZE(b2World*, _world, World);  //!< weak reference to the world
+	CC_SYNTHESIZE(GLESDebugDraw*, _debugDraw, DebugDraw); //!< weak reference to a GLESDebugDraw
 
 	~GB2DebugDrawLayer();
+
+	/**
+     * Crete and initialize a debug draw layer
+     * @return an initialized GB2DebugDrawLayer
+     */
 	static GB2DebugDrawLayer* init();
+	
+	/**
+     * Draw the layer
+     */
 	void draw();
 
 public:
-	//b2World *world;                 //!< weak reference to the world
-    //GLESDebugDraw *debugDraw;       //!< weak reference to a GLESDebugDraw
+
 };
 
+NS_GB_END
 
 #endif

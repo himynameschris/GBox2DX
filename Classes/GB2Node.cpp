@@ -28,22 +28,18 @@
 #include "GB2ShapeCache.h"
 #include "GB2Helper.h"
 
+USING_NS_GB;
+
 GB2Node::GB2Node(void)
 {
 	_body = NULL;
-	_world = GB2Engine::sharedInstance()->getworld();
+	_world = NULL;
 	ccNode = NULL;
 }
 
 GB2Node::~GB2Node()
 {
-	//ccNode->release();
-
-}
-
-void GB2Node::Contact(GB2Contact *contact)
-{
-	//CCLog("GB2Node::Contact");
+	
 }
 
 GB2Node * GB2Node::node()
@@ -81,8 +77,6 @@ GB2Node * GB2Node::nodeFromShapeNameandSprite(CCString *shape, b2BodyType bodyTy
 
 bool GB2Node::initWithShapeNameAndSprite(CCString *shape, b2BodyType bodyType, CCNode *node)
 {
-	//if(shape != NULL) CCLog("GB2Node::init for shape %s", shape->toStdString().c_str());
-	
 	init();
 
 	b2BodyDef bodyDef;
@@ -544,12 +538,12 @@ void GB2Node::setVisible(bool isVisible)
 	ccNode->setIsVisible(isVisible);
 }
 
-CCString *GB2Node::getName()
+void GB2Node::setDisplayFrame(CCSpriteFrame *newFrame)
 {
-	return _name;
+	((CCSprite *)ccNode)->setDisplayFrame(newFrame);
 }
 
-void GB2Node::setName(CCString *name)
+void GB2Node::setDisplayFrameNamed(CCString *name)
 {
-	_name = name;
+	((CCSprite *)ccNode)->setDisplayFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(name->getCString()));
 }

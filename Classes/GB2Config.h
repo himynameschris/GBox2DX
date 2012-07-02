@@ -22,5 +22,12 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  */
+#define NS_GB_BEGIN                     namespace gbox2d {
+#define NS_GB_END                       }
+#define USING_NS_GB                     using namespace gbox2d
 
-#define GB2_HIGHRES_PHYSICS_SHAPES 1
+NS_GB_BEGIN
+
+#define GB2_HIGHRES_PHYSICS_SHAPES 1 //!< set whether hi res physics shapes should be used
+
+NS_GB_END

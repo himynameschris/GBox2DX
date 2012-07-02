@@ -25,11 +25,27 @@
 #ifndef __GB2OBJECT_H__
 #define __GB2OBJECT_H__
 
+#include "GB2Config.h"
+
+NS_GB_BEGIN
+
+/**
+* An abstract class to be inherited by any class needing the nameForObject method for collision registry
+*/
 class GB2Object
 {
+	/**
+	 * A pure virtual method to be overridden by inheriting classes
+	 * @return the name for the object to be used in collision handling determination
+	 */
 	virtual const char *nameForObject() const = 0;
 };
 
+/**
+* A macro to override the nameForObject method in order for a class to be included in collision handling
+*/
 #define COLLISION_OBJECT(A) const char *nameForObject() const {return #A;}
+
+NS_GB_END
 
 #endif // __GB2OBJECT_H__

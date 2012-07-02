@@ -22,16 +22,14 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  */
-
-
 #include "GB2CollisionRegistry.h"
-#include "GB2ContactCallback.h"
-#include "GB2Node.h"
 
 #include <iostream>
 #include "stdio.h"
 
 using namespace std;
+
+USING_NS_GB;
 
 GB2CollisionRegistry* theCollisionRegistry()
 {
@@ -39,14 +37,13 @@ GB2CollisionRegistry* theCollisionRegistry()
     return instance;
 }
 
-
 GB2CollisionRegistry::GB2CollisionRegistry()
 {
 }
 
 bool GB2CollisionRegistry::registerCollision(const char *name, GB2ContactCallbackBase *callBack)
 {
-    CCLog("registering %s as %i", name, (long)callBack);
+    cocos2d::CCLog("registering %s as %i", name, (long)callBack);
     mCallBackMap[std::string(name)] = callBack;
     return true;
 }
@@ -61,7 +58,7 @@ void GB2CollisionRegistry::callCollision(GB2Node *from, GB2Node *to, GB2Collisio
     map<string,GB2ContactCallbackBase*>::const_iterator it = mCallBackMap.find(functionName);
     if(it != mCallBackMap.end())
     {
-		CCLog("calling: %s", functionName);
+		cocos2d::CCLog("calling: %s", functionName);
         (*it).second->collide(from, to, c);
     }
 }

@@ -35,6 +35,8 @@
 
 using namespace std;
 
+USING_NS_GB;
+
 GB2WorldContactListener::GB2WorldContactListener()
 : b2ContactListener()
 {
@@ -50,20 +52,17 @@ GB2WorldContactListener::~GB2WorldContactListener()
  * If a is an object of type A, and b is object of type B this method will
  * call 
  *
- * universal selector:
- *    [a <contactType>:gb2contactB];
- *    [b <contactType>:gb2contactA];
- *
  * typed selector:
- *    [a <contactType>WithB:gb2contactB];
- *    [b <contactType>WithA:gb2contactA];
+ *    a::<contactType>ContactWithB(GB2Node* otherObject, GB2Collision *c)
+ *    b::<contactType>ContactWithA(GB2Node* otherObject, GB2Collision *c)
  *
  * @param contact the b2Contact 
- * @param contactType string containing "beginContact", "endContact" or "presolveContact"
+ * @param contactType string containing "begin", "end", "pre" or "post"
  */
 void GB2WorldContactListener::notifyObjects(b2Contact *contact, std::string contactType)
 {
 	GB2Collision *c = new GB2Collision();
+	c->setContact(contact);
 
 	b2Body *bodyA = contact->GetFixtureA()->GetBody();
 	b2Body *bodyB = contact->GetFixtureB()->GetBody();
@@ -74,32 +73,6 @@ void GB2WorldContactListener::notifyObjects(b2Contact *contact, std::string cont
 	theCollisionRegistry()->callCollision(nodeA, nodeB, c, contactType.c_str());
 	theCollisionRegistry()->callCollision(nodeB, nodeA, c, contactType.c_str());
 
-	/*
-	//previous version: all contact logic is contained within one function in each class 
-	
-	//first step, determine contact type
-	//CCLog("contact notification type: %i", contactType);
-	
-	//grab nodes from b2Contact
-	b2Body *bodyA = contact->GetFixtureA()->GetBody();
-	b2Body *bodyB = contact->GetFixtureB()->GetBody();
-	
-	GB2Node *nodeA = (GB2Node *)(bodyA->GetUserData());
-	GB2Node *nodeB = (GB2Node *)(bodyB->GetUserData());
-
-	GB2Contact *contactWithA = GB2Contact::contactWithObject(nodeB, contact->GetFixtureB(), nodeA, contact->GetFixtureA(), contact, contactType);
-	GB2Contact *contactWithB = GB2Contact::contactWithObject(nodeA, contact->GetFixtureA(), nodeB, contact->GetFixtureB(), contact, contactType);
-	
-	if(bodyA->GetUserData() != NULL)
-	{
-		nodeA->Contact(contactWithB);
-	}
-
-	if(bodyB->GetUserData() != NULL)
-	{
-		nodeB->Contact(contactWithA);
-	}
-	*/
 }
 
 /// Called when two fixtures begin to touch.

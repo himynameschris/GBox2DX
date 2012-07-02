@@ -25,43 +25,56 @@
 #ifndef __GB2NODE_H__
 #define __GB2NODE_H__
 
+#include "GB2Config.h"
 #include "cocos2d.h"
-#include "Box2D.h"
+#include "../../Box2D/Box2D.h"
 #include "GB2Object.h"
-#include "GB2ShapeCache.h"
 
-using namespace cocos2d;
-
-class GB2Contact;
-
-class GB2Node : public CCNode, GB2Object
+NS_GB_BEGIN
+	
+class GB2Node : public cocos2d::CCNode, GB2Object
 {
 public:
-	CC_SYNTHESIZE(CCNode*, ccNode, CCNode);  
+	CC_SYNTHESIZE(cocos2d::CCNode*, ccNode, CCNode);  
 	CC_SYNTHESIZE(bool, deleteLater, DeleteLater); 
 	CC_SYNTHESIZE(b2World*, _world, World); 
 	CC_SYNTHESIZE(b2Body*, _body, Body); 
 	CC_SYNTHESIZE(int, _tag, ObjTag); 
  	CC_SYNTHESIZE(int, _animPhase, AnimPhase);
+	CC_SYNTHESIZE(cocos2d::CCString*, _name, Name);
 
 	GB2Node();
 	~GB2Node();
 
+	/**
+	 * Inits the object's properties to their default value
+	 * @param none
+	 * @return true if initialized, false otherwise
+	 */
 	bool init();
 
-	GB2Node *node();
+	/**
+	 * Creates, inits and returns an autoreleased GB2Node
+	 * @param none
+	 * @return a fresh GB2Node*
+	 */
+	static GB2Node *node();
 
-	bool initWithShapeNameAndSprite(CCString *shape, b2BodyType bodyType, CCNode *node);
-	
-
-	virtual void Contact(GB2Contact *contact);
+	/**
+	 * Creates, inits and returns an autoreleased GB2Node
+	 * @param shape name of the physics shape to use
+	 * @param bodyType Box2D body type for the body
+	 * @param node pre-created sprite node
+	 * @return true if initialized, false otherwise
+	 */
+	bool initWithShapeNameAndSprite(cocos2d::CCString *shape, b2BodyType bodyType, cocos2d::CCNode *node);
 
 	/**
 	 * Inits the object with a CCNode but no physics object
 	 * @param node CCNode which represents the object
 	 * @return the object
 	 */
-	static GB2Node* initWithNode(CCNode *node);
+	static GB2Node* initWithNode(cocos2d::CCNode *node);
 
 	/**
 	 * Inits the object with a dynamic shape and node
@@ -69,7 +82,7 @@ public:
 	 * @param node CCNode to use for this object
 	 * @return the object
 	 */
-	static GB2Node* initWithDynamicBody(CCString *shape, CCNode *node);
+	static GB2Node* initWithDynamicBody(cocos2d::CCString *shape, cocos2d::CCNode *node);
 	
 	/**
 	 * Inits the object with a static shape and node
@@ -77,7 +90,7 @@ public:
 	 * @param node CCNode to use for this object
 	 * @return the object
 	 */
-	static GB2Node* initWithStaticBody(CCString *shape, CCNode *node);
+	static GB2Node* initWithStaticBody(cocos2d::CCString *shape, cocos2d::CCNode *node);
 	
 	/**
 	 * Inits the object with a kinematic shape and node
@@ -85,7 +98,7 @@ public:
 	 * @param node CCNode to use for this object
 	 * @return the object
 	 */
-	static GB2Node* initWithKinematicBody(CCString *shape, CCNode *node);
+	static GB2Node* initWithKinematicBody(cocos2d::CCString *shape, cocos2d::CCNode *node);
 
 	/**
 	 * Inits the object with a shape, body type and node
@@ -93,7 +106,7 @@ public:
 	 * @param node CCNode to use for this object
 	 * @return the object
 	 */
-	static GB2Node* nodeFromShapeNameandSprite(CCString *shape, b2BodyType bodyType, CCNode *node);
+	static GB2Node* nodeFromShapeNameandSprite(cocos2d::CCString *shape, b2BodyType bodyType, cocos2d::CCNode *node);
 
 	/**
 	 * Adds a fixture to the body
@@ -109,7 +122,7 @@ public:
 	 * @param action action to run
 	 * @return action
 	 */
-	CCAction* runAction(CCAction *action);
+	cocos2d::CCAction* runAction(cocos2d::CCAction *action);
 
 	/**
 	 * Stops all actions on the inner CCNode
@@ -120,7 +133,7 @@ public:
 	 * Stops the given action on the inner CCNode
 	 * @param action action to stop
 	 */
-	void stopAction(CCAction *action);
+	void stopAction(cocos2d::CCAction *action);
 
 	/**
 	 * Sets the CCNode to visible/invisible
@@ -137,7 +150,7 @@ public:
 	 * Sets the position from pixel coordinates
 	 * @param p position to set
 	 */
-	void setCcPosition(CCPoint p);
+	void setCcPosition(cocos2d::CCPoint p);
 
 	/**
 	 * Scales the graphics (currently not the object!)
@@ -148,7 +161,7 @@ public:
 	/**
 	 * Returns the object's position in pixel coordinates
 	 */
-	CCPoint ccPosition();
+	cocos2d::CCPoint ccPosition();
 
 	/**
 	 * Delete the object, remove it from the parent scene
@@ -170,7 +183,7 @@ public:
 	 * Replaces the current fixtures with the new shape
 	 * @param shapeName name of the shape to set
 	 */
-	void setBodyShape(CCString *shapeName);
+	void setBodyShape(cocos2d::CCString *shapeName);
 
 	/**
 	 * Returns the object's mass
@@ -202,7 +215,7 @@ public:
 	 * @param shapeName name of the shape to set
 	 * @param pos position of the object
 	 */
-	void setKinematicBody(CCString *shapeName, b2Vec2 pos);
+	void setKinematicBody(cocos2d::CCString *shapeName, b2Vec2 pos);
 
 	/**
 	 * Replaces the object's fixtures with the new shape
@@ -210,7 +223,7 @@ public:
 	 * @param shapeName name of the shape to set
 	 * @param pos position of the object
 	 */
-	void setDynamicBody(CCString *shapeName, b2Vec2 pos);
+	void setDynamicBody(cocos2d::CCString *shapeName, b2Vec2 pos);
 
 	/**
 	 * Replaces the object's fixtures with the new shape
@@ -218,7 +231,7 @@ public:
 	 * @param shapeName name of the shape to set
 	 * @param pos position of the object
 	 */
-	void setStaticBody(CCString *shapeName, b2Vec2 pos);
+	void setStaticBody(cocos2d::CCString *shapeName, b2Vec2 pos);
 
 	/**
 	 * Sets the body type of the object
@@ -339,7 +352,7 @@ public:
 	 * @param bits bits to clear
 	 * @param forId only change the bits for the given fixtureID
 	 */
-	void clrCollisionMaskBits(uint16 bits, CCString *fixtureId);
+	void clrCollisionMaskBits(uint16 bits, cocos2d::CCString *fixtureId);
 
 	/**
 	 * Adds mask bits on the object's fixtures
@@ -354,7 +367,7 @@ public:
 	 * @param bits bits to set
 	 * @param forId only change the bits for the given fixtureID
 	 */
-	void addCollisionMaskBits(uint16 bits, CCString *fixtureId);
+	void addCollisionMaskBits(uint16 bits, cocos2d::CCString *fixtureId);
 
 	/**
 	 * Sets the mask bits to the given value
@@ -367,7 +380,7 @@ public:
 	 * @param bits bits
 	 * @param forId only change the bits for the given fixtureID
 	 */
-	void setCollisionMaskBits(uint16 bits, CCString *fixtureId);
+	void setCollisionMaskBits(uint16 bits, cocos2d::CCString *fixtureId);
 
 	/**
 	 * Add bits to the collision category
@@ -380,7 +393,7 @@ public:
 	 * @param bits bits to set
 	 * @param forId only change the bits for the given fixtureID
 	 */
-	void addCollisionCategoryBits(uint16 bits, CCString *fixtureId);
+	void addCollisionCategoryBits(uint16 bits, cocos2d::CCString *fixtureId);
 
 	/**
 	 * Clr bits on the collition category
@@ -395,7 +408,7 @@ public:
 	 * @param bits to clr
 	 * @param forId only change the bits for the given fixtureID
 	 */
-	void clrCollisionCategoryBits(uint16 bits, CCString *fixtureId);
+	void clrCollisionCategoryBits(uint16 bits, cocos2d::CCString *fixtureId);
 
 	/**
 	 * Sets the category bits to the given value
@@ -408,9 +421,13 @@ public:
 	 * @param bits bits to set
 	 * @param forId only change the bits for the given fixtureID
 	 */
-	void setCollisionCategoryBits(uint16 bits, CCString *fixtureId);
+	void setCollisionCategoryBits(uint16 bits, cocos2d::CCString *fixtureId);
 
-
+	/**
+	 * Uses the node's internal Box2D body to create a fixture from the definition input
+	 * @param fixtureDef definition of the fixture to add
+	 * @return b2Fixture from the definition
+	 */
 	virtual b2Fixture *createFixture(const b2FixtureDef *fixtureDef);
 
 	/**
@@ -434,27 +451,59 @@ public:
 
 	/**
 	 * Adds an edge to the fixture
+	 * @param start the starting point for the box
+	 * @param end the end point for the box
 	 */
 	void addEdgeFrom(b2Vec2 start, b2Vec2 end);
-	void addBoxFrom(b2Vec2 start, b2Vec2 end);
-	 
-	CCString *description();
-
-	void setParent(CCNode *parent);
-	void setParent(CCNode *parent, float z);
 	
-	void setBodyAndType(CCString *shapeName, b2BodyType bodyType, b2Vec2 pos);
+	/**
+	 * Adds a box to the fixture
+	 * @param start the starting point for the box
+	 * @param end the end point for the box
+	 */
+	void addBoxFrom(b2Vec2 start, b2Vec2 end);
+	
+	/**
+	 * Sets the parent of the ccNode
+	 * @param parent the parent
+	 */
+	void setParent(cocos2d::CCNode *parent);
 
-	void setName(CCString *name);
-	CCString *getName();
+	/**
+	 * Sets the parent of the ccNode with z-order
+	 * @param parent the parent
+	 * @param z the z-order
+	 */
+	void setParent(cocos2d::CCNode *parent, float z);
+	
+	/**
+	 * Sets the internal Box2D body, type and position
+	 * @param shapeName the shape name string
+	 * @param bodyType the Box2D body type
+	 * @param pos the b2Vec2 position
+	 */
+	void setBodyAndType(cocos2d::CCString *shapeName, b2BodyType bodyType, b2Vec2 pos);
+
+	/**
+	 * Sets the internal ccNode's display frame
+	 * @param newFrame the CCSpriteFrame
+	 */
+	void setDisplayFrame(cocos2d::CCSpriteFrame *newFrame);
+	
+	/**
+	 * Sets the internal Box2D body, type and position
+	 * @param name the CCString for the display frame name
+	 */
+	void setDisplayFrameNamed(cocos2d::CCString *name);
 
 	COLLISION_OBJECT(GB2Node)
 
 protected:
 	int _objectTag; //!< tag might be used to query an object
-	CCString *_name;
 
 };
+
+NS_GB_END
 
 #endif  // __GB2NODE_H__
 

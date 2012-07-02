@@ -21,10 +21,13 @@
 #ifndef RENDER_H
 #define RENDER_H
 
+#include "GB2Config.h"
 #include "Box2D/Box2D.h"
 #include "cocos2d.h"
 
 struct b2AABB;
+
+NS_GB_BEGIN
 
 // This class implements debug drawing callbacks that are invoked
 // inside b2World::Step.
@@ -59,5 +62,6 @@ public:
     virtual void DrawAABB(b2AABB* aabb, const b2Color& color);
 };
 
+NS_GB_END
 
 #endif

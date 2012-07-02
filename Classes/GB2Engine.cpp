@@ -24,16 +24,18 @@
  */
 
 #include "Box2D.h"
-#include "GB2Contact.h"
 #include "GB2Engine.h"
 #include "GB2WorldContactListener.h"
-#include "GB2Sprite.h"
 
 // default ptm ratio value
 
 #ifndef PTM_RATIO
 #define PTM_RATIO 32.0f
 #endif
+
+USING_NS_CC;
+
+USING_NS_GB;
 
 typedef void(GB2NodeCallBack)(GB2Node*);
 
@@ -164,9 +166,3 @@ void GB2Engine::update(ccTime dt)
 	   }
 
 }
-
-void GB2Engine::iterateObjectsWithBlock(GB2NodeCallBack *callback)
-{
-	   
-}
-

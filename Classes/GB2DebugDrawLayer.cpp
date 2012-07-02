@@ -6,6 +6,8 @@
 
 using namespace cocos2d;
 
+USING_NS_GB;
+
 enum  	{ 
   e_shapeBit = 0x0001, e_jointBit = 0x0002, e_aabbBit = 0x0004, e_pairBit = 0x0008, 
   e_centerOfMassBit = 0x0010 

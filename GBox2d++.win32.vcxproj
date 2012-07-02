@@ -14,14 +14,12 @@
     <ClInclude Include="Classes\GB2Collision.h" />
     <ClInclude Include="Classes\GB2CollisionRegistry.h" />
     <ClInclude Include="Classes\GB2Config.h" />
-    <ClInclude Include="Classes\GB2Contact.h" />
     <ClInclude Include="Classes\GB2ContactCallback.h" />
     <ClInclude Include="classes\gb2debugdrawlayer.h" />
     <ClInclude Include="Classes\GB2Engine.h" />
     <ClInclude Include="Classes\GB2Node.h" />
     <ClInclude Include="Classes\GB2Object.h" />
     <ClInclude Include="Classes\GB2ShapeCache.h" />
-    <ClInclude Include="Classes\GB2Sprite.h" />
     <ClInclude Include="Classes\GB2WorldContactListener.h" />
     <ClInclude Include="Classes\GB2Helper.h" />
     <ClInclude Include="Classes\GLES-Render.h" />
@@ -29,12 +27,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\GB2CollisionRegistry.cpp" />
-    <ClCompile Include="Classes\GB2Contact.cpp" />
     <ClCompile Include="Classes\GB2DebugDrawLayer.cpp" />
     <ClCompile Include="Classes\GB2Engine.cpp" />
     <ClCompile Include="Classes\GB2Node.cpp" />
     <ClCompile Include="Classes\GB2ShapeCache.cpp" />
-    <ClCompile Include="Classes\GB2Sprite.cpp" />
     <ClCompile Include="Classes\GB2WorldContactListener.cpp" />
     <ClCompile Include="Classes\GLES-Render.cpp" />
     <ClCompile Include="GBox2D.cpp" />

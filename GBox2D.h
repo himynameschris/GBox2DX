@@ -25,24 +25,26 @@
 #ifndef GBOX2D_H
 #define GBOX2D_H
 
+#include "cocos2d.h"
+#include "Box2D.h"
+
 #include "Classes\GB2Config.h"
+
 #include "Classes\GB2Collision.h"
 #include "Classes\GB2DebugDrawLayer.h"
 #include "Classes\GB2Engine.h"
 #include "Classes\GB2Node.h"
 #include "Classes\GB2ShapeCache.h"
-#include "Classes\GB2Sprite.h"
 #include "Classes\GB2WorldContactListener.h"
 #include "Classes\GB2Helper.h"
 #include "Classes\GB2CollisionRegistry.h"
 #include "Classes\GB2Object.h"
-#include "Classes\GB2Contact.h"
 #include "Classes\GB2ContactCallback.h"
 
-namespace   gbox2d {
+NS_GB_BEGIN
 
 const char* gbox2dVersion();
 
-}//namespace   gbox2d 
+NS_GB_END
 
 #endif // GBOX2D_H

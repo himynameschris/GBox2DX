@@ -41,6 +41,11 @@
 #ifndef GB2CONTACTCALLBACK_H
 #define GB2CONTACTCALLBACK_H
 
+#include "GB2Config.h"
+#include "GB2Node.h"
+
+NS_GB_BEGIN
+
 class GB2Collision;
 
 /**
@@ -117,5 +122,6 @@ private:
  */
 #define POST_COLLISION(A,B) static bool gPostContact_##A_##B_registered = theCollisionRegistry()->registerCollision(#A"::postContactWith"#B,new GB2ContactCallback<A>(&A::post##ContactWith##B));
 
+NS_GB_END
 
 #endif //GB2CONTACTCALLBACK_H

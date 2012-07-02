@@ -36,25 +36,20 @@
  * handles collisions between objects
  *
  * The implementation asumes that the user data in the b2Body objects
- * is an NSObject* 
+ * is an GB2Object* 
  *
  * It automatically calls selectors for the collision detection.
  * E.g. if you have 2 objects colliding, one with a class named
  * Stone and one with a class named Floor it will call the following
  * selectors
- *   [aFloor beginContactWithStone:(GB2Contact*)contact]
- *   [aStone beginContactWithFloor:(GB2Contact*)contact]
+ *   aFloor::beginContactWithStone(GB2Node* otherObject, GB2Collision *c)
+ *   aStone::beginContactWithFloor(GB2Node* otherObject, GB2Collision *c)
  * for each point of the contact.
  *
  * For each lost contact point
- *   [aFloor endContactWithStone:(GB2Contact*)contact]
- *   [aStone endContactWithFloor:(GB2Contact*)contact]
+ *   aFloor::endContactWithStone(GB2Node* otherObject, GB2Collision *c)
+ *   aStone::endContactWithFloor(GB2Node* otherObject, GB2Collision *c)
  * will be called.
- *
- * Since this does not allow calling the method names on base classes
- * a general purpose beginContact and endContact also exists:
- *   [obj beginContact:(GB2Contact*)contact]
- *   [obj endContact:(GB2Contact*)contact]
  *
  * During the endContactWith* and beginContactWith* selector calls
  * you must not destroy the object or change the object's physical
@@ -62,17 +57,15 @@
  *
  * The functions are called for each contact point. To detect if
  * some objects have contact you need to count the number of 
- * begin and end calls.
+ * begin and end calls or track the object's state change.
  *
  * During the presolve phase it is possible to disable collisions
  * e.g. if a player picksup an object you usually don't want him to
  * bump into the object but just pass through it.
  *
  * In this case 
- *  [aFloor presolveContactWithStone:(GB2Contact*)contact]
- *  [aStone presolveContactWithFloor:(GB2Contact*)contact]
- *  [aFloor presolveContact:(GB2Contact*)contact]
- *  [aStone presolveContact:(GB2Contact*)contact]
+ *  aFloor::preContactWithStone(GB2Node* otherObject, GB2Collision *c)
+ *  aStone::preContactWithFloor(GB2Node* otherObject, GB2Collision *c)
  * are called
  *
  * From within one of these selectors you can call
@@ -93,9 +86,5 @@ public:
 	void notifyObjects(b2Contact *contact, std::string contactType);
 protected:
 };
-
-typedef void (GB2Node::*SEL_CallFuncGD)(GB2Node*, void*);
-
-#define callfuncGD_selector(_SELECTOR) (SEL_CallFuncGD)(&_SELECTOR)
 
 #endif  // __GB2ENGINE_H__

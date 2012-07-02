@@ -41,6 +41,8 @@
 
 using namespace cocos2d;
 
+USING_NS_GB;
+
 /**
  * Internal class to hold the fixtures
  */

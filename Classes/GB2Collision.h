@@ -24,9 +24,22 @@
 #ifndef GB2COLLISION_H
 #define GB2COLLISION_H
 
+#include "GB2Config.h"
+#include "../../Box2D/Box2D.h"
+#include "cocos2d.h"
+
+NS_GB_BEGIN
+
+/**
+* A generic class to contain details about the collision if needed
+*/
 class GB2Collision
 {
+public:
+	CC_SYNTHESIZE(b2Contact*, mContact, Contact); //!< the b2Contact object encapsulated
 
 };
+
+NS_GB_END
 
 #endif //GB2COLLISION_H

@@ -23,11 +23,12 @@
  */
 
 #include "GBox2D.h"
-namespace   gbox2d {
+
+NS_GB_BEGIN
 
 const char* gbox2dVersion()
 {
 	return "gbox2d-1.0";
 }
 
-}//namespace   gbox2d 
+NS_GB_END

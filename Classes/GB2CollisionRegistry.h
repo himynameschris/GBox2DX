@@ -22,23 +22,51 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  */
+#ifndef GB2COLLISIONREGISTRY_H
+#define GB2COLLISIONREGISTRY_H
+
 #include <map>
 #include <string>
 
-class GB2ContactCallbackBase;
-class GB2Collision;
-class GB2Node;
+#include "GB2Config.h"
+#include "GB2ContactCallback.h"
+#include "GB2Node.h"
 
+NS_GB_BEGIN
+
+/**
+* A singleton class containing the registered collision callbacks, responsible for registry and calling of collisions
+*/
 class GB2CollisionRegistry
 {
 public:
+	GB2CollisionRegistry();
+
+	/**
+	 * A method to register collisions by name (eg "nodeAbeginContactWithnodeB"
+	 * @param name the name of the function to register
+	 * @param callBack the class inheriting GB2ContactCallbackBase
+	 * @return true if added successfully
+	 */
     bool registerCollision(const char *name, GB2ContactCallbackBase *callBack);
-    void callCollision(GB2Node *from, GB2Node *to, GB2Collision *c, const char *beginEnd);
+    
+	/**
+	 * The method that will trigger the collision callback, usually called from the contact listener
+	 * @param from the object colliding
+	 * @param to the object being collided with
+	 * @param c the collision object
+	 * @param beginEnd the collision phase (pre, begin, end, post)
+	 */
+	void callCollision(GB2Node *from, GB2Node *to, GB2Collision *c, const char *beginEnd);
 private:
-    GB2CollisionRegistry();
-    friend GB2CollisionRegistry* theCollisionRegistry();
+    
+    friend GB2CollisionRegistry* theCollisionRegistry(); //!< the singleton member
 	
-    std::map<std::string, GB2ContactCallbackBase *> mCallBackMap;
+    std::map<std::string, GB2ContactCallbackBase *> mCallBackMap; //!< the map containing callback names and handlers
 };
 
 GB2CollisionRegistry* theCollisionRegistry();
+
+NS_GB_END
+
+#endif

@@ -36,6 +36,8 @@
 #ifndef RANDVALBETW
 #define RANDVALBETW
 
+USING_NS_CC;
+
 inline float randomValueBetween(float low, float high)
 {
 	return ( (float)rand( ) / ( (float)RAND_MAX + 1.0f ) ) * high + low;

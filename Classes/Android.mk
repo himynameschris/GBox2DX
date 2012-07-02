@@ -16,7 +16,6 @@ LOCAL_SRC_FILES := GB2Contact.cpp \
 				   GB2Engine.cpp \
 				   GB2Node.cpp \
 				   GB2ShapeCache.cpp \
-				   GB2Sprite.cpp \
 				   GB2WorldContactListener.cpp \
 				   GLES-Render.cpp
 
