@@ -31,9 +31,12 @@ using namespace std;
 
 USING_NS_GB;
 
-GB2CollisionRegistry* theCollisionRegistry()
+GB2CollisionRegistry* GB2CollisionRegistry::sharedInstance()
 {
-    static GB2CollisionRegistry* instance = new GB2CollisionRegistry();
+    if(!instance)
+	{
+		instance = new GB2CollisionRegistry();
+	}
     return instance;
 }
 

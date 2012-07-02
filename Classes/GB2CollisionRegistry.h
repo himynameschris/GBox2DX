@@ -40,7 +40,7 @@ NS_GB_BEGIN
 class GB2CollisionRegistry
 {
 public:
-	GB2CollisionRegistry();
+	
 
 	/**
 	 * A method to register collisions by name (eg "nodeAbeginContactWithnodeB"
@@ -58,15 +58,17 @@ public:
 	 * @param beginEnd the collision phase (pre, begin, end, post)
 	 */
 	void callCollision(GB2Node *from, GB2Node *to, GB2Collision *c, const char *beginEnd);
+
+	static GB2CollisionRegistry* sharedInstance();
+
 private:
-    
-    friend GB2CollisionRegistry* theCollisionRegistry(); //!< the singleton member
-	
+	GB2CollisionRegistry();
+
     std::map<std::string, GB2ContactCallbackBase *> mCallBackMap; //!< the map containing callback names and handlers
 };
 
-GB2CollisionRegistry* theCollisionRegistry();
-
 NS_GB_END
+
+static gbox2d::GB2CollisionRegistry *instance = NULL;
 
 #endif

@@ -70,8 +70,10 @@ void GB2WorldContactListener::notifyObjects(b2Contact *contact, std::string cont
 	GB2Node *nodeA = (GB2Node *)(bodyA->GetUserData());
 	GB2Node *nodeB = (GB2Node *)(bodyB->GetUserData());
 
-	theCollisionRegistry()->callCollision(nodeA, nodeB, c, contactType.c_str());
-	theCollisionRegistry()->callCollision(nodeB, nodeA, c, contactType.c_str());
+	GB2CollisionRegistry *r = GB2CollisionRegistry::sharedInstance();
+
+	r->callCollision(nodeA, nodeB, c, contactType.c_str());
+	r->callCollision(nodeB, nodeA, c, contactType.c_str());
 
 }
 

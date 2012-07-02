@@ -43,6 +43,7 @@
 
 #include "GB2Config.h"
 #include "GB2Node.h"
+#include "GB2CollisionRegistry.h"
 
 NS_GB_BEGIN
 
@@ -99,28 +100,28 @@ private:
  * @param A class to call the method on
  * @param B class which A collides with
  */
-#define BEGIN_COLLISION(A,B) static bool gBeginContact_##A_##B_registered = theCollisionRegistry()->registerCollision(#A"::beginContactWith"#B,new GB2ContactCallback<A>(&A::begin##ContactWith##B));
+#define BEGIN_COLLISION(A,B) static bool gBeginContact_##A_##B_registered = GB2CollisionRegistry::sharedInstance()->registerCollision(#A"::beginContactWith"#B,new GB2ContactCallback<A>(&A::begin##ContactWith##B));
 
 /**
  * Macro to register the A:endContactWithB()
  * @param A class to call the method on
  * @param B class which A collides with
  */
-#define END_COLLISION(A,B) static bool gEndContact_##A_##B_registered = theCollisionRegistry()->registerCollision(#A"::endContactWith"#B,new GB2ContactCallback<A>(&A::end##ContactWith##B));
+#define END_COLLISION(A,B) static bool gEndContact_##A_##B_registered = GB2CollisionRegistry::sharedInstance()->registerCollision(#A"::endContactWith"#B,new GB2ContactCallback<A>(&A::end##ContactWith##B));
 
 /**
  * Macro to register the A:preContactWithB()
  * @param A class to call the method on
  * @param B class which A collides with
  */
-#define PRE_COLLISION(A,B) static bool gPreContact_##A_##B_registered = theCollisionRegistry()->registerCollision(#A"::preContactWith"#B,new GB2ContactCallback<A>(&A::pre##ContactWith##B));
+#define PRE_COLLISION(A,B) static bool gPreContact_##A_##B_registered = GB2CollisionRegistry::sharedInstance()->registerCollision(#A"::preContactWith"#B,new GB2ContactCallback<A>(&A::pre##ContactWith##B));
 
 /**
  * Macro to register the A:postContactWithB()
  * @param A class to call the method on
  * @param B class which A collides with
  */
-#define POST_COLLISION(A,B) static bool gPostContact_##A_##B_registered = theCollisionRegistry()->registerCollision(#A"::postContactWith"#B,new GB2ContactCallback<A>(&A::post##ContactWith##B));
+#define POST_COLLISION(A,B) static bool gPostContact_##A_##B_registered = GB2CollisionRegistry::sharedInstance()->registerCollision(#A"::postContactWith"#B,new GB2ContactCallback<A>(&A::post##ContactWith##B));
 
 NS_GB_END
 

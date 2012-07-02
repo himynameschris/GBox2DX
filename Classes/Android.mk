@@ -10,8 +10,7 @@ APP_STL := stlport_static
 
 LOCAL_MODULE_FILENAME := libgbox2d
 
-LOCAL_SRC_FILES := GB2Contact.cpp \
-                   GB2CollisionRegistry.cpp \
+LOCAL_SRC_FILES := GB2CollisionRegistry.cpp \
 				   GB2DebugDrawLayer.cpp \
 				   GB2Engine.cpp \
 				   GB2Node.cpp \

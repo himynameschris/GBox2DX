@@ -5,6 +5,8 @@
 
 class TestScene;
 
+USING_NS_GB;
+
 class TestScreenEdge : public GB2Node
 {
 public:
@@ -12,9 +14,7 @@ public:
 	~TestScreenEdge();
 
 	static TestScreenEdge * initWithLevelLayer(TestScene *layer);
-
-	virtual void Contact(GB2Contact *contact);
-
+	
 	void setLevelLayer(TestScene *layer);
 	TestScene * getLevelLayer();
 

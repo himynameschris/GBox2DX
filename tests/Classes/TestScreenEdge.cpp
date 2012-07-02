@@ -1,6 +1,8 @@
 #include "TestScreenEdge.h"
 #include "TestScene.h"
 
+USING_NS_GB;
+
 BEGIN_COLLISION(TestScreenEdge, GB2Node)
 
 TestScreenEdge::TestScreenEdge()
@@ -10,16 +12,6 @@ TestScreenEdge::TestScreenEdge()
 
 TestScreenEdge::~TestScreenEdge()
 {
-
-}
-
-void TestScreenEdge::Contact(GB2Contact *contact)
-{
-	GB2Node *oobject = contact->getotherObject();
-
-	CCString *fixID = (CCString *)contact->getotherFixture()->GetUserData();
-
-	oobject->setDeleteLater(true);
 
 }
 
