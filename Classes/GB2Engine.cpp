@@ -130,7 +130,7 @@ void GB2Engine::deleteWorld()
     this->worldContactListener = NULL;
 }
 
-void GB2Engine::update(ccTime dt) 
+void GB2Engine::update(float dt) 
 {   
     const float32 timeStep = 1.0f / 60.0f;
     const int32 velocityIterations = 8;

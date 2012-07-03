@@ -21,7 +21,7 @@ public:
 
 	virtual bool init();
 	static cocos2d::CCScene* scene();
-	void update(ccTime dt);
+	void update(float dt);
 
 	void createWall();
 

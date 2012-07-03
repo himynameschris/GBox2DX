@@ -535,7 +535,7 @@ void GB2Node::setAngularVelocity(float32 v)
 
 void GB2Node::setVisible(bool isVisible)
 {
-	ccNode->setIsVisible(isVisible);
+	ccNode->setVisible(isVisible);
 }
 
 void GB2Node::setDisplayFrame(CCSpriteFrame *newFrame)

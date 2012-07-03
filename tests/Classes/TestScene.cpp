@@ -55,8 +55,8 @@ bool TestScene::init()
 #ifdef	DO_DEBUG
 		this->addChild(GB2DebugDrawLayer::init(), 30);
 #endif
-		setIsTouchEnabled( true );
-
+		setTouchEnabled(true);
+		
 		bRet = true;
 
 	} while (0);
@@ -101,7 +101,7 @@ GB2Node *TestScene::createNode(string name, cocos2d::CCSprite *node)
 	return GB2Node::nodeFromShapeNameandSprite(&CCString((name).c_str()), b2_dynamicBody, node);
 }
 
-void TestScene::update(ccTime dt)
+void TestScene::update(float dt)
 {
 
 }
