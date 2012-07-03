@@ -1,0 +1,125 @@
+# GBox2DX #
+*A C++ wrapper for Box2D and Cocos2d-x based on the GBox2D repo by Andreas Loew*
+
+## Details: ##
+
+The purpose of this library is to accomplish common tasks usually required to make a physics enabled game with cocos2d-x and Box2D. A brief description of the classes:
+
+- GB2Node: a subclass of CCNode gluing cocos2d and box2d functions, containing ccNode to hold a sprite and body to hold a box2D body.
+- GB2Engine: a singleton class responsible for the b2World and updating sprites based on their physics body.
+- GB2ContactRegistry: a registry of contact callbacks. To implement collision callbacks an object must:
+	- inherit GB2Object
+	- implement the `COLLISION_OBJECT(ClassA)` macro
+	- register contacts with `BEGIN_COLLISION(ClassA, ClassB)` or similar macros (END, PRE, POST)
+- GB2WorldContactListener: the b2world's contact listenener, responsible for dispatching the contact methods. After registering your contact with the macro above, implement the corresponding contact method such as:
+	- void `ClassA::beginContactWithClassB(GB2Node* otherObject, GB2Collision *c)`
+- GB2ShapeCache: a .plist parser for files output from PhysicsEditor, as well as a singleton cache to hold the definitions.
+
+## Setup: ##
+
+- drop the GBox2DX repo into your cocos2d-x gles2.0 or later root folder
+- add the GBox2DX library project (and test project if desired) into your cocos2dx solution
+- update any project dependencies with "libGBox2D.lib" if needed
+- update project paths to cocos2d-x as needed
+
+**Android:**
+
+- also includes Android.mk, a makefile for a shared or static library on android-ndk-r7b or later
+- add the following to your Android.mk and update any include paths:
+	- `LOCAL_WHOLE_STATIC_LIBRARIES += gbox2d_static`
+	- `$(call import-module,GBox2D/Classes)`
+
+## Usage:  ##
+
+Two options exist to begin using the library, either dynamically create objects or subclass the main object GB2Node. The advantage of subclassing objects is that you will be able to take advantage of collision detection and callbacks.
+
+When a node is created with one of the methods below, the following takes place behind the scenes:
+
+- an instance of the singleton GB2Engine is created
+- a b2World object is created and attached to the engine
+- an update selector is scheduled to step through the world and update any node's sprite position based on it's physics body
+- GB2WorldContactListener is registered as the contact listener for the world
+
+**Dynamically creating nodes:**
+
+The method you use will depend on:
+
+- Your sprite: This can be NULL, or any other subclass of CCNode. 
+
+- Your physics object: This can be NULL, a Box2D body, or a string containing the shape name from the *.plist parsed by GB2ShapeCache. For instructions on using the shape cache, see [http://www.channon.us/?page_id=48](http://www.channon.us/?page_id=48 "Channon.us: GB2ShapeCache for cocos2d-x-2.0")
+
+
+If shapes have already been read in by GB2ShapeCacheReader, and you are using a spritesheet that has also been loaded:
+
+	GB2Node *node = GB2Node::nodeFromShapeNameandSprite(
+		&CCString((name).c_str()), b2_dynamicBody, 
+		CCSprite::spriteWithSpriteFrameName((name+".png").c_str()));
+
+If you have a Sprite and a Box2D body already created:
+
+	GB2Node *node = GB2Node::initWithNode(sprite);
+	node->setBody(body);
+	body->setUserData(node);
+
+Subclassing GB2Node:
+
+	//example static method in a subclass of GB2Node
+	//to save time, initWithShapeNameAndSprite() could 
+	//also be use in place of init() below
+	ExampleObject * ExampleObject::createExampleObject()
+	{
+		//create the new object
+		ExampleObject *e = new ExampleObject();
+		//call the GB2Node::init() method
+		if(e && e->init())
+		{
+			//create a generic Box2D body, fixtures can be added now or later
+			b2BodyDef bodyDef;
+	        bodyDef.type = b2_staticBody;
+	        bodyDef.position.Set(0,0);
+	        bodyDef.angle = 0;
+			
+			//use the Box2D world to create the body and attach to our node
+			e->setBody(e->getWorld()->CreateBody(&bodyDef));
+			
+			//this ties the body to the node, allowing GB2Engine to update them simultaneously
+			e->getBody()->SetUserData(s);
+			
+			//this can be used for object tracking
+			e->setObjTag(1);
+			
+			//return our newly created node
+			return e;
+		}
+
+		//if allocation or init fails, return NULL
+		CC_SAFE_DELETE(e);
+		return NULL;
+	}
+
+
+
+
+MIT License
+ 
+ Copyright (c) 2010 Andreas Loew / www.code-and-web.de
+
+ Copyright (c) 2012 Chris Hannon / channon.us
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ 
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
