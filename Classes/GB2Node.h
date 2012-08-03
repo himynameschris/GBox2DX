@@ -177,7 +177,7 @@ public:
 	 * Called by GB2Engine to update the shape's position
 	 * and rotation from the physics coordinates 
 	 */
-	virtual void updateCCFromPhysics();
+	virtual void updateCCFromPhysics(float dt);
 
 	/**
 	 * Replaces the current fixtures with the new shape

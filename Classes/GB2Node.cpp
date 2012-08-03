@@ -383,7 +383,7 @@ void GB2Node::setStaticBody(CCString *shapeName, b2Vec2 pos)
     this->setBodyAndType(shapeName, b2_staticBody, pos);    
 }
 
-void GB2Node::updateCCFromPhysics()
+void GB2Node::updateCCFromPhysics(float dt)
 {
 	//CCLog("GB2Node::updateCCFromPhysics");
     b2Vec2 position = _body->GetPosition();

@@ -6,3 +6,4 @@ tests/proj.android/bin/classes/org/cocos2dx/lib/*
 tests/proj.android/bin/*
 tests/proj.android/obj/*
 tests/proj.android/libs/*
+Release.win32/

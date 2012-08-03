@@ -132,7 +132,7 @@ void GB2Engine::deleteWorld()
 
 void GB2Engine::update(float dt) 
 {   
-    const float32 timeStep = 1.0f / 60.0f;
+    const float32 timeStep = dt; //1.0f / 60.0f;
     const int32 velocityIterations = 8;
     const int32 positionIterations = 3;
     
@@ -148,7 +148,7 @@ void GB2Engine::update(float dt)
 		{
 			GB2Node *obj = (GB2Node *)b->GetUserData();
 
-			obj->updateCCFromPhysics();
+			obj->updateCCFromPhysics(dt);
 
 			if(obj->getDeleteLater())
 			{
