@@ -74,7 +74,7 @@ void GB2WorldContactListener::notifyObjects(b2Contact *contact, std::string cont
 
 	r->callCollision(nodeA, nodeB, c, contactType.c_str());
 	r->callCollision(nodeB, nodeA, c, contactType.c_str());
-
+	delete c;
 }
 
 /// Called when two fixtures begin to touch.
