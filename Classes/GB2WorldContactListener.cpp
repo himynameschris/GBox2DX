@@ -61,8 +61,8 @@ GB2WorldContactListener::~GB2WorldContactListener()
  */
 void GB2WorldContactListener::notifyObjects(b2Contact *contact, std::string contactType)
 {
-	GB2Collision *c = new GB2Collision();
-	c->setContact(contact);
+	GB2Collision c;
+	c.setContact(contact);
 
 	b2Body *bodyA = contact->GetFixtureA()->GetBody();
 	b2Body *bodyB = contact->GetFixtureB()->GetBody();
@@ -72,9 +72,8 @@ void GB2WorldContactListener::notifyObjects(b2Contact *contact, std::string cont
 
 	GB2CollisionRegistry *r = GB2CollisionRegistry::sharedInstance();
 
-	r->callCollision(nodeA, nodeB, c, contactType.c_str());
-	r->callCollision(nodeB, nodeA, c, contactType.c_str());
-
+	r->callCollision(nodeA, nodeB, &c, contactType.c_str());
+	r->callCollision(nodeB, nodeA, &c, contactType.c_str());
 }
 
 /// Called when two fixtures begin to touch.
